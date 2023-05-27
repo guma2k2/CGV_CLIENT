@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace = "~{client/fragment :: page_head('Vincinema')}" />
+<body>
+<div th:replace = "~{client/fragment :: nav}" ></div>
+<div class="text-center m-3 alert alert-danger" th:if ="${message != null}" role="alert">
+    [[${message}]]
+</div>
+<div class="text-center m-3 alert alert-success" th:if ="${messageSuccess != null}" role="alert">
+    [[${messageSuccess}]]
+</div>
+<div class="container border rounded" style="width: 550px; height: 380px; margin: 10px auto; padding: 20px 20px 5px;"  >
+        <h2 class="text-center form-title">ĐĂNG NHẬP</h2>
+        <form  th:action = "@{/vincinema/login}" method="post" >
+            <div class="row" >
+                <label class="col-12" style="font-size : 13px; color: #222;" >Email</label>
+                <input type="email" class="col-12 input "   name="email" required />
+                <label class="col-12" style="font-size : 13px; color: #222;" >Mật khẩu</label>
+                <input type="password" class="col-12 input "   name="password" required />
+            </div>
+            <input class="button-auth" type="submit" value="Đăng nhập"  />
+            <a  style="color: #4896fa; margin: 10px auto; font-size : 12px; "   th:href="@{/vincinema/forgotPassword}" >Bạn muốn tìm tại mật khẩu?</a>
+        </form>
+
+    </div>
+<div th:replace = "~{client/fragment :: footer}"></div>
+</body>
+</html>

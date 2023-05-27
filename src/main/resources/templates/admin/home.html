@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace = "~{admin/fragment :: page_head('Vincinema Admin')}" />
+<body>
+<div th:replace = "~{admin/fragment :: sidebar}" ></div>
+    <div class="main">
+        <div th:replace = "~{admin/fragment :: headers}" ></div>
+        <input name="token" th:value="${token}" type="hidden"  />
+        <div class="content container" >
+            <h2 class="text-center h2 my-3" >Sale By Cinema</h2>
+            <div class="row my-3 " >
+                <div class="col-6" >
+                    <div class="row" >
+                        <label class="col-4" >City</label>
+                        <select id="city-list" class="col-8">
+                            <th:block th:each="city : ${cites}" >
+                                <option th:value="${city.id}" th:text="${city.name}" ></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6" >
+                    <div class="row" >
+                        <label class="col-4" >Cinema</label>
+                        <select class="col-8"  id="cinema-list"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3" >
+                <div class="col-5" >
+                    <div class="row" >
+                        <label class="col-4" >From date</label>
+                        <input type="date" required name="startDate" th:value="${startDate}" />
+                    </div>
+                </div>
+                <div class="col-5" >
+                    <div class="row" >
+                        <label class="col-4" >End date</label>
+                        <input type="date" required name="endDate" th:value="${endDate}"  />
+                    </div>
+                </div>
+                <div class="col-2" >
+                    <button id="drawChart" >Search</button>
+                </div>
+            </div>
+            <div class="row my-3" id="chart_sales" >
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript" th:src ="@{/js/admin/home.js}" ></script>
+<script type="text/javascript" th:src ="@{/js/admin/revenue.js}" ></script>
+</body>
+</html>
