@@ -1,7 +1,3 @@
-
-
-
-
 $(document).ready(function () {
     var jwt = $("input[name='token']").val() ;
     console.log(jwt);
@@ -53,7 +49,7 @@ $(document).ready(function () {
             })
     }
     function getReport(startDate, endDate, cinemaId , jwt) {
-      var url = "http://localhost:8080/api/v1/ticket/admin/between/" + startDate + "/" + endDate + "/where/" + cinemaId ;
+      var url = baseUrl +  "/api/v1/ticket/admin/between/" + startDate + "/" + endDate + "/where/" + cinemaId ;
       var headers = { "Authorization": "Bearer " + jwt };
       return new Promise(function(resolve, reject) {
         $.ajax({
@@ -65,7 +61,7 @@ $(document).ready(function () {
             resolve(data);
           },
           error: function(jqXHR, textStatus, errorThrown) {
-            reject(errorThrown);
+            reject(jqXHR);
           }
         });
       });
@@ -111,7 +107,7 @@ $(document).ready(function () {
        }
     function getCinemaByCity(cityId) {
        var cinemas = [];
-       var url = "http://localhost:8080/api/v1/movies/cinemas/find/city/" + cityId;
+       var url =  baseUrl +  "/api/v1/movies/cinemas/find/city/" + cityId;
          $.ajax({
            url: url,
            method: 'GET',

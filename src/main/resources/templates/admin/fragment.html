@@ -40,14 +40,10 @@
           <a th:href="@{/vincinema/admin/room}"><i class="fas fa-kaaba"></i>Manage Room</a>
         </div>
         <div class="item schedule">
-          <a class="sub-btn schedule">
+          <a class="sub-btn schedule" th:href="@{/vincinema/admin/schedule}">
             <i class="fas fa-cogs"></i>
             Manage Schedule
-            <i class="fas fa-angle-right dropdown"></i>
           </a>
-          <div class="sub-menu schedule">
-            <a th:href="@{/vincinema/admin/schedule}" class="sub-item">CRUD Schedule</a>
-          </div>
         </div>
         <div class="item">
           <a class="sub-btn" th:href="@{/vincinema/admin/settings}">

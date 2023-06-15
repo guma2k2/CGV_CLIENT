@@ -3,10 +3,10 @@
 <head th:replace = "~{client/fragment :: page_head('Vincinema')}" />
 <body>
 <div th:replace = "~{client/fragment :: nav}" ></div>
-<div style="background:#fdfcf0;">
-    <div class="text-center">
-        VE CUA TOI
-    </div>
+<div style="background:#fdfcf0; font-family: 'Noto Sans', sans-serif;">
+    <h1 class="text-center my-2">
+        VÉ CỦA TÔI
+    </h1>
     <div class="m-3" style="min-height: 700px; " >
         <input type="hidden" id="token" name="token" th:value="${token}" />
         <table th:if="${#lists.size(tickets) > 0}" class="table table-bordered">
@@ -31,7 +31,7 @@
                    <td>[[${event.room.name}]]</td>
                    <td class="d-flex flex-column p-2">
                        <div class="startTime mb-2">[[${event.start_time}]]</div>
-                       <div>[[${#temporals.format(event.start_date, 'MM-yyyy')}]]</div>
+                       <div>[[${#temporals.format(event.start_date, 'dd-MM-yyyy')}]]</div>
                    </td>
                    <td>[[${ticket.seats}]]</td>
                    <td class="p-3" >
@@ -58,6 +58,7 @@
 </div>
 <div th:replace = "~{client/ticket-modal :: ticket-modal}"></div>
 <div th:replace = "~{client/fragment :: footer}"></div>
+<script type="text/javascript" th:src ="@{/js/common/common.js}" ></script>
 <script type="text/javascript" th:src ="@{/js/client/ticket-history.js}" ></script>
 </body>
 </html>

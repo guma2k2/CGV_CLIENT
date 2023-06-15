@@ -12,21 +12,21 @@ $(document).ready(function() {
       listCinemasHtml(cinemas);
    });
    $('ul').on('click', 'li[id^="cinema"]', function() {
-     var cinemaId = $(this).data("id");
-//     console.log(cinemaName);
-     $(".cgv-schedule").show();
+         var cinemaId = $(this).data("id");
+    //     console.log(cinemaName);
+         $(".cgv-schedule").show();
 
-     $(this).addClass('current');
-     $(this).siblings().removeClass('current');
-     var cinema = findById(cinemaId);
-//     console.log(cinema) ;
-     theaterHeadHtml(cinema);
-     var dateList = '<ul id="date-list">';
-     for (var i = 0; i < 10; i++) {
-       var date = new Date(2023, 3 , 11);
-       date.setDate(date.getDate() + i);
-       var isActive = i === 0 ? 'active' : '';
-       dateList += '<li class="day ' + isActive + '" data-date="' + date.toISOString().split('T')[0] + '">' + formatDate(date) + '</li>';
+         $(this).addClass('current');
+         $(this).siblings().removeClass('current');
+         var cinema = findById(cinemaId);
+    //     console.log(cinema) ;
+         theaterHeadHtml(cinema);
+         var dateList = '<ul id="date-list">';
+         for (var i = 0; i < 10; i++) {
+           var date = new Date(2023, 3 , 11);
+           date.setDate(date.getDate() + i);
+           var isActive = i === 0 ? 'active' : '';
+           dateList += '<li class="day ' + isActive + '" data-date="' + date.toISOString().split('T')[0] + '">' + formatDate(date) + '</li>';
      }
      dateList += '</ul>';
      $('#date-selection').html(dateList);
@@ -58,51 +58,51 @@ $(document).ready(function() {
    });
 
   function filmListHtml(filmList) {
-    var filmHtml = '';
-    $.each(filmList, function(movieKey, subtitleMap) {
-      var id = movieKey.substring(movieKey.indexOf("id=")+3, movieKey.indexOf(", title="));
-      var title = movieKey.substring(movieKey.indexOf("title='")+7, movieKey.indexOf("', poster_url="));
-      var poster_url = movieKey.substring(movieKey.indexOf("poster_url='")+12, movieKey.indexOf("'}"));
-      var movie = { id: id, title: title, poster_url: poster_url };
+        var filmHtml = '';
+        $.each(filmList, function(movieKey, subtitleMap) {
+          var id = movieKey.substring(movieKey.indexOf("id=")+3, movieKey.indexOf(", title="));
+          var title = movieKey.substring(movieKey.indexOf("title='")+7, movieKey.indexOf("', poster_url="));
+          var poster_url = movieKey.substring(movieKey.indexOf("poster_url='")+12, movieKey.indexOf("'}"));
+          var movie = { id: id, title: title, poster_url: poster_url };
 
-      filmHtml += '<div class="film-list" >';
-      filmHtml+= `<div class="film-label" >
-                            <h3>
-                              <a href="/vincinema/movie/${movie.id}" >${movie.title}</a>
-                              <span class="rating-icon" >C18</span>
-                            </h3>
-                          </div>`;
-      filmHtml+= `<div class="film-left">
-                            <div class="film-poster">
-                              <a>
-                                <img src="${movie.poster_url}" style="display: block; border: 0 ; width:182px; height:260px;"  />
-                              </a>
-                            </div>
-                          </div>`;
-      filmHtml+='<div class="film-right">';
+          filmHtml += '<div class="film-list" >';
+          filmHtml+= `<div class="film-label" >
+                                <h3>
+                                  <a href="/vincinema/movie/${movie.id}" >${movie.title}</a>
+                                  <span class="rating-icon" >C18</span>
+                                </h3>
+                              </div>`;
+          filmHtml+= `<div class="film-left">
+                                <div class="film-poster">
+                                  <a>
+                                    <img src="${movie.poster_url}" style="display: block; border: 0 ; width:182px; height:260px;"  />
+                                  </a>
+                                </div>
+                              </div>`;
+          filmHtml+='<div class="film-right">';
 
-      $.each(subtitleMap, function(subtitleKey, eventList) {
-        var subtitle = {};
-        subtitleKey.substring(subtitleKey.indexOf("(") + 1, subtitleKey.indexOf(")")).split(", ").forEach(function(item) {
-          var parts = item.split("=");
-          subtitle[parts[0]] = parts[1].replace(/'/g, "");
-        });
-        filmHtml+= `<strong class="film-screen std pl-1" style="font-weight: bold;" >${subtitle.name}</strong>`;
-        filmHtml+='<div class="film-showtimes" >';
-        filmHtml+= '<ul class="event-items d-flex " >';
-        $.each(eventList, function(index, event) {
-            filmHtml+=`<li class="event-item" >
-                            <a href="/vincinema/booking/${event.id}" >
-                                <span>${event.start_time}</span>
-                            </a>
-                        </li>`;
-        });
-        filmHtml+='</ul>' ;
-        filmHtml+='</div>' ;
-      });
+          $.each(subtitleMap, function(subtitleKey, eventList) {
+            var subtitle = {};
+            subtitleKey.substring(subtitleKey.indexOf("(") + 1, subtitleKey.indexOf(")")).split(", ").forEach(function(item) {
+              var parts = item.split("=");
+              subtitle[parts[0]] = parts[1].replace(/'/g, "");
+            });
+            filmHtml+= `<strong class="film-screen std pl-1" style="font-weight: bold;" >${subtitle.name}</strong>`;
+            filmHtml+='<div class="film-showtimes" >';
+            filmHtml+= '<ul class="event-items d-flex " >';
+            $.each(eventList, function(index, event) {
+                filmHtml+=`<li class="event-item" >
+                                <a href="/vincinema/booking/${event.id}" >
+                                    <span>${event.start_time}</span>
+                                </a>
+                            </li>`;
+            });
+            filmHtml+='</ul>' ;
+            filmHtml+='</div>' ;
+          });
 
-        filmHtml+='</div>' ;
-        filmHtml+='</div>' ;
+            filmHtml+='</div>' ;
+            filmHtml+='</div>' ;
     });
 
     $(".cgv-showtimes").html(filmHtml);
@@ -110,7 +110,7 @@ $(document).ready(function() {
 
   function getCinemasByCity(cityId) {
         var cinemas = [];
-        var url = "http://localhost:8080/api/v1/movies/cinemas/find/city/" + cityId;
+        var url = baseUrl + "/api/v1/movies/cinemas/find/city/" + cityId;
           $.ajax({
             url: url,
             method: 'GET',
@@ -121,10 +121,9 @@ $(document).ready(function() {
           });
           return cinemas;
     }
-
   function findById(cinemaId) {
     var cinema;
-    var url = "http://localhost:8080/api/v1/movies/cinemas/" + cinemaId;
+    var url = baseUrl + "/api/v1/movies/cinemas/" + cinemaId;
       $.ajax({
         url: url,
         method: 'GET',
@@ -203,10 +202,9 @@ $(document).ready(function() {
 
                      $(".theater-wrap").html(html);
   }
-
   function getFilmByDateCinema(cinemaId , date) {
         var films ;
-        var url = "http://localhost:8080/api/v1/movies/events/cinemas/"+cinemaId+"/" + date;
+        var url = baseUrl + "/api/v1/movies/events/cinemas/"+cinemaId+"/" + date;
           $.ajax({
             url: url,
             method: 'GET',
@@ -217,15 +215,14 @@ $(document).ready(function() {
           });
           return films;
   }
-
-   function listCinemasHtml(cinemas) {
+  function listCinemasHtml(cinemas) {
         var html = '' ;
         for(var i = 0 ; i < cinemas.length ; i++) {
             html+='<li id="cinema'+cinemas[i].id+'" data-id="'+cinemas[i].id+'" data-name="'+cinemas[i].name+'" ><span>'+cinemas[i].name+'</span></li>';
         }
           $("#cinema-list").html(html);
    }
-   function formatDate(date) {
+  function formatDate(date) {
          var mm = (date.getMonth() + 1).toString().padStart(2, '0'); // add leading zero if needed
          var dd = (date.getDate() - 1).toString().padStart(2, '0'); // add leading zero if needed
          var daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];

@@ -11,14 +11,15 @@ public class TicketDTO {
     private String qrCode ;
 
     private EventDTO event ;
-    private String banking;
     private String stk;
-
     private Long userId ;
     private Long bookingId ;
     private List<BookingComboDTO> combos ;
     private String seats ;
     private Long totalAmount ;
+
+    private String phoneNumber;
+    private String bank;
 
 
 }

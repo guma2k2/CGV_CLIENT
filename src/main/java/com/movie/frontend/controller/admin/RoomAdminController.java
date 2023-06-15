@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +68,24 @@ public class RoomAdminController {
         } catch (JwtExpirationException e) {
             return "redirect:/vincinema" ;
         }
+    }
 
+    @GetMapping("/{roomId}")
+    public String returnCityByRoom(@PathVariable("roomId") Long roomId,
+                                   HttpSession session,
+                                   RedirectAttributes redirectAttributes) {
+        try {
+            RoomDTO room = roomService.get(roomId , session) ;
+            String cinemaName = room.getCinemaName() ;
+            log.info(cinemaName);
+            Integer cityId = room.getCinema().getCity().getId();
+            log.info(String.valueOf(cityId));
+            redirectAttributes.addFlashAttribute("cinemaName" , cinemaName);
+            redirectAttributes.addFlashAttribute("cityId" , cityId);
+            return "redirect:/vincinema/admin/room";
+        } catch (JwtExpirationException e) {
+            return "redirect:/vincinema" ;
+        }
     }
 
     @GetMapping("/{roomId}/seats")

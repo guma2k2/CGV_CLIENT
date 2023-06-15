@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 public class Utility {
 
     public static HttpEntity<?> getHeaderWithJwt(String token) {
+        // Configure header with jwt to call API
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT , MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(HttpHeaders.AUTHORIZATION ,"Bearer "+token);
@@ -18,6 +19,7 @@ public class Utility {
     }
 
     public static HttpEntity<?> getHeaderWithJwtAndObject(String token, Object object) {
+        // Configure header with jwt to call API and extract object to request
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT , MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.set(HttpHeaders.AUTHORIZATION ,"Bearer "+token);
@@ -25,6 +27,8 @@ public class Utility {
         return request;
     }
     public static String getJwt(HttpSession session) {
+
+        // Get jwt from session which was set when user login success
         JwtToken jwtToken = (JwtToken) session.getAttribute("jwtToken");
         String token = "" ;
         if(jwtToken != null) {
@@ -36,6 +40,7 @@ public class Utility {
     }
 
     public static String getRefreshToken(HttpSession session) {
+        // Get refresh token from session which was set when user login success
         JwtToken jwtToken = (JwtToken) session.getAttribute("jwtToken");
         String token = "" ;
         if(jwtToken.getAccess_token() != null) {
@@ -49,6 +54,8 @@ public class Utility {
         String refreshToken = getRefreshToken(session) ;
         JwtToken jwtToken = null ;
         ResponseEntity<T> response = restTemplate.exchange(url , method , request , responseType) ;
+
+        // Handle when jwt is expired , then use refresh token
         if(response.getStatusCode().value() == 401) {
             HttpEntity<?> newRequest = getHeaderWithJwt(refreshToken) ;
             String API_GetNewAccessToken = Apis.API_AUTH_REFRESH_TOKEN;

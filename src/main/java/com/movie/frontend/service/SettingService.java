@@ -26,9 +26,9 @@ public class SettingService {
         return Arrays.stream(response.getBody()).toList();
     }
     public String saveSetting(List<Setting> settings, String token, HttpSession session) throws JwtExpirationException {
-        String createBookingURL = Apis.API_CREATE_BOOKING;
+        String saveSetting = Apis.API_SAVE_SETTING;
         HttpEntity<?> httpEntity = Utility.getHeaderWithJwtAndObject(token, settings) ;
-        ResponseEntity<String> responseEntity = Utility.body(createBookingURL, HttpMethod.POST, httpEntity,String.class,session );
+        ResponseEntity<String> responseEntity = Utility.body(saveSetting, HttpMethod.POST, httpEntity,String.class,session );
         return responseEntity.getBody() ;
     }
 }

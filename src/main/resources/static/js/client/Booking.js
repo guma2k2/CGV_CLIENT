@@ -1,5 +1,9 @@
 $(document).ready(function() {
-
+   var stompClient = null;
+   var eventId = $("input[name='eventId']").val() ;
+   var username = null;
+   var interval ;
+   connect();
 
   // Show default tab on page load
   // Handle tab link button clicks
@@ -27,14 +31,18 @@ $(document).ready(function() {
             },700);
        }
     } else if (tabId == 'tab2' && tab_name == 'tab2') {
+       sendMessage();
        $("#form-booking").submit();
     }else {
         var loadingElement =  $("#loading")
         loadingElement.addClass("loading");
         setTimeout(function() {
-            loadingElement.removeClass("loading");
-            countdown(0 , 0 , 'Người / Ghế ');
-            toggleTab(tabId , event);
+        loadingElement.removeClass("loading");
+        if(interval != null) {
+            clearInterval(interval);
+        }
+        countdown(0 , 0 , 'Người / Ghế ');
+        toggleTab(tabId , event);
         },500);
     }
   });
@@ -189,12 +197,13 @@ $(document).ready(function() {
        $("#minute").text('');
        $("#second").text('');
        $("#clock-title").css("display" ,"none");
+       clearInterval(interval);
        return;
     }
     $("#clock-title").css("display" ,"block");
     clockDown.show();
     var totalSeconds = minutes * 60 + seconds;
-    var interval = setInterval(function() {
+    interval = setInterval(function() {
       var remainingSeconds = totalSeconds % 60;
       var remainingMinutes = Math.floor(totalSeconds / 60);
       var formattedMinute = pad(remainingMinutes, 2);
@@ -214,7 +223,6 @@ $(document).ready(function() {
         $("#second").text('');
         $("#clock-title").css("display" ,"none");
         clearInterval(interval);
-
       }
     }, 1000);
   }
@@ -232,4 +240,82 @@ $(document).ready(function() {
     return s;
   }
 
+  function connect() {
+      var username = $("input[name='username']").val() ;
+      console.log(username);
+      if(username) {
+          var socket = new SockJS('/ws');
+          stompClient = Stomp.over(socket);
+          stompClient.connect({}, onConnected, onError);
+      }
+  }
+
+  function onConnected() {
+      username = $("input[name='username']").val() ;
+      console.log(eventId);
+      stompClient.subscribe('/topic/event/' + eventId , onMessageReceived);
+      // Tell your username to the server
+      stompClient.send("/app/chat/"+ eventId + "/add",
+          {},
+          JSON.stringify({sender: username, type: 'JOINED'})
+      )
+  }
+  function onError(error) {
+      alert(error)
+  }
+  function onMessageReceived(payload) {
+      console.log(payload.body);
+      var chatMessage = JSON.parse(payload.body);
+      if(chatMessage.type === 'BOOKED') {
+        var seatWasBooked = chatMessage.seats.split(", ");
+        console.log(seatWasBooked);
+        $(".seat").each(function() {
+            var dataName = $(this).data('name');
+            if (seatWasBooked.includes(dataName)) {
+               $(this).addClass('reserved');
+               $(this).prop('disabled', true);
+            }
+        })
+      } else if(chatMessage.type === "LEAVE") {
+           console.log("leave");
+           stompClient.unsubscribe("/topic/event/" + eventId);
+      } else if(chatMessage.type === "CANCEL") {
+          var seatWasBooked = chatMessage.seats;
+          console.log("CANCEL");
+          $(".seat").each(function() {
+              var dataName = $(this).data('name');
+              if (seatWasBooked.includes(dataName)) {
+                 $(this).removeClass('reserved');
+                 $(this).removeAttr('disabled');
+              }
+          })
+      }  else if(chatMessage.type === "PAID") {
+           var seatWasBooked = chatMessage.seats;
+           console.log("PAID");
+           $(".seat").each(function() {
+               var dataName = $(this).data('name');
+               if (seatWasBooked.includes(dataName)) {
+                  $(this).removeClass('reserved');
+                  $(this).addClass('unavailable');
+                  $(this).removeAttr('disabled');
+               }
+           })
+       }
+  }
+  function sendMessage() {
+      var messageContent = $('.seat.checked').map(function() {
+           return $(this).data('name');
+       }).get().join(', ');
+       console.log(eventId);
+       console.log(messageContent);
+      if(messageContent && stompClient) {
+          var chatMessage = {
+              sender: username,
+              seats: messageContent,
+              type: 'BOOKED'
+          };
+          stompClient.send("/app/chat/"+ eventId + "/sendMessage", {}, JSON.stringify(chatMessage));
+      }
+  }
 });
+

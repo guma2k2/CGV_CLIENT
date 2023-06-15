@@ -26,13 +26,17 @@
         Nội Dung Phim
     </span>
 </div>
-<div class="container my-5" >
+<div class="container my-5" style="height: 380px;" >
     <div class="row">
-        <div class="col-lg-4 col-md-6">
-            <img th:src="@{${movie.photosImagePath}}" class="img-fluid rounded shadow">
+        <div class="col-lg-4 col-md-6 d-flex flex-column" style="height: 380px;" >
+            <img th:src="@{${movie.photosImagePath}}" class=" shadow" style="height: 90%; object-fit:cover" >
+            <button class="btn btn-danger"
+                    th:id="'buy-ticket-btn'+${movie.id}" th:movieId = "${movie.id}" >
+                <span>Mua vé</span>
+            </button>
         </div>
 
-        <div class="col-lg-8 col-md-6" style="min-height: 490px; position: relative; " >
+        <div class="col-lg-8 col-md-6" style="min-height: 380px; position: relative; " >
             <h1 class="mb-3" th:text="${movie.title}" ></h1>
             <p><strong>Release Date:</strong> <span th:text="${#temporals.format(movie.release_date, 'dd/MM/yyyy')}"></span></p>
             <p><strong>Genre:</strong>
@@ -45,13 +49,7 @@
             <p><strong>Director:</strong> [[${movie.director}]]</p>
             <p><strong>Cast:</strong> [[${movie.cast}]]</p>
             <p style="font-weight: bold; text-transform: uppercase;" ><strong>Rated:</strong> <span th:text="${#strings.toString(movie.rating.name())}"></span> - <span th:text="${movie.rating.label}"></span></p>
-            <button class="btn btn-dander" style="position: absolute; bottom:5px; left:0;
-                                            color: #FFFFFF; font-size: 13px;background: #e71a0f; display: inline-block;
-                                            text-align: center; font-weight: normal; padding:5px;
-                                            width: 88px; height: 28px;"
-                   th:id="'buy-ticket-btn'+${movie.id}" th:movieId = "${movie.id}" >
-                <span>Mua ve</span>
-            </button>
+
         </div>
     </div>
 </div>
@@ -70,11 +68,16 @@
             </div>
             <div class="tab-pane fade" id="pills-trailer" role="tabpanel" aria-labelledby="pills-trailer-tab">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" th:src="@{${movie.trailer}}" allowfullscreen></iframe>
+                    <iframe width="560" height="315" th:src="@{${movie.trailer}}"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </div>
 </div>
+<script type="text/javascript" th:src ="@{/js/common/common.js}" ></script>
 <div th:replace = "~{client/fragment :: footer}"></div>
 <div th:replace = "~{client/fragment :: modal-booking}"></div>
 <script type="text/javascript" th:src = "@{/js/client/Event.js}"></script>

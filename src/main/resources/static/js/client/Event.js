@@ -42,12 +42,14 @@ $(document).ready(function() {
          }
         $('#date-list').on('click', '.day', function() {
            var loadingElement =  $("#loading")
-           $(this).addClass('active');
-           var selectedDate = $(this).data('date');
            loadingElement.addClass("loading");
+           $('#date-list .day.active').removeClass('active');
+           var dateSelectedElement = $(this) ;
            setTimeout(function() {
-             loadingElement.removeClass("loading");
-             $('#date-list .day.active').removeClass('active');
+               loadingElement.removeClass("loading");
+               $('#date-list .day.active').removeClass('active');
+               dateSelectedElement.addClass('active');
+               var selectedDate = dateSelectedElement.data('date');
                 console.log(selectedDate);
                 cites.length = 0;
                 cinemas.length = 0 ;
@@ -132,7 +134,7 @@ $(document).ready(function() {
      var subs = [] ;
      $.ajax({
          type: "GET",
-         url: "http://localhost:8080/api/v1/movies/events/sub/"+ day + "/" + cityName +"/" + movieId,
+         url:  baseUrl + "/api/v1/movies/events/sub/"+ day + "/" + cityName +"/" + movieId,
          success: function(response) {
            subs = response;
          },
@@ -149,7 +151,7 @@ $(document).ready(function() {
     var cites = [];
       $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/v1/movies/cities/" + movieId + "/" + day,
+        url: baseUrl + "/api/v1/movies/cities/" + movieId + "/" + day,
 
         success: function(response) {
           cites = response;
@@ -189,7 +191,7 @@ $(document).ready(function() {
   }
 
   function getEvents(date , cinemaName , movieId, subType) {
-     var url = 'http://localhost:8080/api/v1/movies/events/' + date + '/' + cinemaName + '/' + movieId + "/" + subType;
+     var url = baseUrl + '/api/v1/movies/events/' + date + '/' + cinemaName + '/' + movieId + "/" + subType;
          console.log(url);
          var events = [];
          $.ajax({
@@ -204,7 +206,7 @@ $(document).ready(function() {
   }
 
   function getCinemas(date, cityName, movieId , subType) {
-    var url = 'http://localhost:8080/api/v1/movies/cinemas/' + date + '/' + cityName + '/' + movieId + '/' + subType;
+    var url = baseUrl + '/api/v1/movies/cinemas/' + date + '/' + cityName + '/' + movieId + '/' + subType;
     console.log(url);
     var cinemas = [];
     $.ajax({
@@ -217,7 +219,6 @@ $(document).ready(function() {
     });
     return cinemas;
   }
-
 
   function formatDate(date) {
       var mm = (date.getMonth() + 1).toString().padStart(2, '0'); // add leading zero if needed

@@ -19,7 +19,12 @@
                         <h3 class="title">Table List User</h3>
                         <div class="action-search" >
                             <input  name="keyword"  th:value="${keyword}"  placeholder="Search by firstName, lastName, email" style="height:40px; width:300px;" />
-                            <button class="btn btn-primary actionSearch" >Search</button>
+                            <button class="btn btn-primary actionSearch" >
+                                <i class="fa fa-solid fa-search "></i>
+                            </button>
+                            <button class="btn btn-primary actionRefresh" >
+                                <i class="fa fa-solid fa-eraser"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="btn btn-primary addUser "style="height:40px; margin-top:20px;" >
@@ -113,6 +118,7 @@
     </div>
 <script type="text/javascript" th:src ="@{/js/admin/home.js}" ></script>
 <script type="text/javascript" th:src ="@{/js/admin/user.js}" ></script>
-<script type="text/javascript" th:src ="@{/js/admin/common_form.js}" ></script>
+<script type="text/javascript" th:src ="@{/js/common/common_form.js}" ></script>
+<script type="text/javascript" th:src ="@{/js/common/common.js}" ></script>
 </body>
 </html>

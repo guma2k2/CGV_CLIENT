@@ -3,7 +3,10 @@
 <head th:replace = "~{client/fragment :: page_head('Vincinema')}" />
 <body>
 <div th:replace = "~{client/fragment :: nav}" ></div>
-
+<th:block th:if="${session.jwtToken != null}">
+    <input type="hidden" name="username" th:value="${session.fullName}"  />
+</th:block>
+<input type="hidden" name="eventId" th:value="${event.id}"   />
 <div class="container" >
     <div id="loading"></div>
     <form  id="form-booking" method="post" th:action ="@{/vincinema/booking/create}" style=" width:100%; margin: 0 auto; "  >
@@ -45,7 +48,7 @@
                      background-size: 100% auto ; ">
                 </div>
                 <div class="seats d-flex justify-content-center align-items-center " style="min-height: 500px; max-height: 970px;" >
-                  <div class="d-flex flex-wrap align-items-center justify-content-center " th:style = " 'width: calc(23px * '+ ${col_num} + ' + 1px * 2 * '+${col_num}+ ' );' "  >
+                  <div class="d-flex flex-wrap align-items-center justify-content-center " th:style = " 'width: calc(23px * '+ ${col_num} + ' + 1px * 2 * '+${ col_num }+ ' );' "  >
                     <th:block th:each="rowNum : ${#numbers.sequence(1, row_num)}">
                         <th:block th:each="colNum : ${#numbers.sequence(1, col_num)}">
                                 <th:block th:each ="seat : ${seats}">
@@ -56,27 +59,27 @@
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).VIP}">
-                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat normal'}" th:text="${seat.seat_name}"
+                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat vip'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).SWEETBOX}">
-                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat normal'}" th:text="${seat.seat_name}"
+                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat sweetbox'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).KING}">
-                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat normal'}" th:text="${seat.seat_name}"
+                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat king'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).COUPLE}">
-                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat normal'}" th:text="${seat.seat_name}"
+                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat couple'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).DELUXE}">
-                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat normal'}" th:text="${seat.seat_name}"
+                                            <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat deluxe'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
@@ -248,6 +251,7 @@
     </form>
 
 </div>
+<script type="text/javascript" th:src ="@{/js/common/common.js}" ></script>
 <script type="text/javascript" th:src ="@{/js/client/Booking.js}" ></script>
 </body>
 </html>

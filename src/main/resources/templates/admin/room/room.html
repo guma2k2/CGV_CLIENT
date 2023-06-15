@@ -7,6 +7,8 @@
     <div class="main">
         <div th:replace = "~{admin/fragment :: headers}" ></div>
         <div class="content" >
+            <input type="hidden" name="cinemaName" th:value="${cinemaName}"  />
+            <input type="hidden" name="cityId" th:value="${cityId}"  />
             <input type="hidden" name="token" th:value="${token}"  />
             <div class="container " style="background :#ffffff; margin-top:20px; " >
                 <div class="table-title" style="display:flex; justify-content: space-between; margin-top: 20px; margin-bottom: 20px;" >
@@ -33,12 +35,16 @@
                             </div>
                         </div>
                     </div>
-                    <div id="addRoom" class="btn btn-primary" style="height: 40px; margin: auto 0 ;" >
-                        <i class="fas fa-plus" ></i>
-                        ADD
+                    <div class="d-flex">
+                        <div id="addRoom" class="btn btn-primary" style="height: 40px;" >
+                            <i class="fas fa-plus" ></i>
+                            ADD
+                        </div>
+                        <button class="btn btn-primary actionRefresh ml-2" style="height: 40px;" >
+                            <i class="fa fa-solid fa-eraser"></i>
+                        </button>
                     </div>
                 </div>
-
                 <input type="hidden" name="sortField" th:value="${sortField}"  />
                 <input type="hidden" name="sortDir" th:value="${sortDir}" />
                 <input type="hidden" name="totalPage" th:value = "${totalPage}"  />
@@ -57,7 +63,7 @@
                                 <i class="fas fa-arrow-down"  ></i>
                             </a>
                             </th>
-                            <th>Capacity</th>
+                            <th>Capacity (rows X columns)</th>
                             <th>Cinema Name</th>
                             <th>Action</th>
                             <th>Manage Seat</th>
@@ -105,6 +111,7 @@
             </div>
         </div>
     </div>
+<script type="text/javascript" th:src ="@{/js/common/common.js}" ></script>
 <script type="text/javascript" th:src ="@{/js/admin/home.js}" ></script>
 <script type="text/javascript" th:src ="@{/js/admin/room.js}" ></script>
 </body>

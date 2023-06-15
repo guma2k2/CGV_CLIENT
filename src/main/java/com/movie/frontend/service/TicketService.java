@@ -19,11 +19,12 @@ import java.util.List;
 @Service
 public class TicketService {
 
-    public void createTicket(Long userId, Long bookingId, String token, HttpSession session) throws JwtExpirationException {
+    public void createTicket(Long userId, Long bookingId, String bank ,String token, HttpSession session) throws JwtExpirationException {
         TicketDTO ticket = new TicketDTO();
         ticket.setUserId(userId);
         ticket.setBookingId(bookingId);
         ticket.setQrCode("uglyBoy");
+        ticket.setBank(bank);
         String createTicketURL = Apis.API_CREATE_TICKET;
         HttpEntity<?> httpEntity = Utility.getHeaderWithJwtAndObject(token, ticket) ;
         HttpEntity<String> response = Utility.body(createTicketURL, HttpMethod.POST, httpEntity, String.class, session);

@@ -9,6 +9,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -93,8 +98,11 @@
 <div th:fragment = "modal-booking" >
     <div class="modal fade" id="ticket-modal" tabindex="-1" role="dialog" aria-labelledby="ticket-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
+            <div class="modal-content"  >
+                <div class="modal-body" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative;" >
+                        <span style="position: absolute; top: 5px; right: 5px;" aria-hidden="true">&times;</span>
+                    </button>
                     <div id="date-selection"></div>
                     <div id="city-selection"></div>
                     <div id="sub-selection"></div>

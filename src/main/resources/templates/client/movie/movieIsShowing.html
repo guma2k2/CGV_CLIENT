@@ -3,6 +3,7 @@
 <head th:replace = "~{client/fragment :: page_head('Vincinema')}" />
 <body>
 <div th:replace = "~{client/fragment :: nav}" ></div>
+<div id="loading"  ></div>
 <div class="bread-crumb" style="width: 100%; height: 30px; margin-bottom: 50px; " >
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="width:100%; background: #f1f0e5;" >
@@ -58,6 +59,7 @@
 </div>
 <div th:replace = "~{client/fragment :: footer}"></div>
 <div th:replace = "~{client/fragment :: modal-booking}"></div>
+<script type="text/javascript" th:src ="@{/js/common/common.js}" ></script>
 <script type="text/javascript" th:src = "@{/js/client/Event.js}"></script>
 </body>
 </html>

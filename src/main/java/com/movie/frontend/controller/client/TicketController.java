@@ -51,6 +51,8 @@ public class TicketController {
             Long eventId = Long.valueOf(servletRequest.getParameter("eventId"));
             Long bookingId = Long.valueOf(servletRequest.getParameter("bookingId"));
 
+            log.info(String.valueOf(eventId));
+            log.info(String.valueOf(bookingId));
 
             if (bookingId == null) {
                 return "redirect:/vincinema/booking/" + eventId ;
@@ -62,11 +64,11 @@ public class TicketController {
             Long userId = ((JwtToken) session.getAttribute("jwtToken")).getUser().getId();
 
             // API : CREATE_TICKET
-            ticketService.createTicket(userId, bookingId, jwt, session);
+            ticketService.createTicket(userId, bookingId, banking ,jwt, session);
             return "client/success";
         } catch (HttpClientErrorException e) {
             log.error("err: {}" , e.getMessage());
-            return "redirect:/vincinema/login";
+            return "redirect:/vincinema";
         } catch (JwtExpirationException e) {
             return "redirect:/vincinema/login";
         }

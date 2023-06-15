@@ -41,7 +41,6 @@ $(document).ready(function () {
         });
         $("table").on("click" , ".fas.fa-edit" , function() {
            var eventId = $(this).data("id");
-
            handleUpdateEvent(eventId,jwt) ;
 
         });
@@ -164,11 +163,10 @@ $(document).ready(function () {
                   alert("An error occurred.");
                 }
             })
-
    }
    function updateEventDb(event , jwt , eventId) {
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/event/update/" + eventId ;
+          var url = baseUrl +  "/api/v1/admin/event/update/" + eventId ;
            return new Promise(function(resolve, reject) {
              $.ajax({
                type: "PUT",
@@ -181,7 +179,7 @@ $(document).ready(function () {
                  resolve(data);
                },
                 error: function(jqXHR, textStatus, errorThrown) {
-                 reject(errorThrown);
+                 reject(jqXHR);
                 }
              });
            });
@@ -201,12 +199,12 @@ $(document).ready(function () {
    }
    function getAllMovie(movieId) {
         $.ajax({
-          url: "http://localhost:8080/api/v1/movies",
+          url: baseUrl + "/api/v1/movies",
           method: "GET",
           success: function(data) {
             // Loop through the movie data and append each option to the select element
             $.each(data, function(index, movie) {
-              console.log(movie.id);
+//              console.log(movie.id);
               $('#movie-list').append('<option value="' + movie.id + '">' + movie.title + '</option>');
             });
 
@@ -221,7 +219,7 @@ $(document).ready(function () {
    }
    function getEventById(eventId, jwt) {
         var headers = { "Authorization": "Bearer " + jwt };
-        var url = "http://localhost:8080/api/v1/movies/events/booking/" + eventId ;
+        var url = baseUrl + "/api/v1/movies/events/booking/" + eventId ;
         return new Promise(function(resolve, reject) {
            $.ajax({
              type: "GET",
@@ -237,7 +235,8 @@ $(document).ready(function () {
            });
          });
    }
-   $(".fas .fa-times").click(function() {
+   $(".cancel").click(function() {
+       console.log("empty");
        $(".add-content").html('');
    })
    $(".addAction").click(function() {
@@ -245,7 +244,7 @@ $(document).ready(function () {
         var date = $("#date").val() ;
         var html = '' ;
         if(roomId !== '' && date !== '') {
-            html+= `    <div class="text-center" >
+            html+= `<div class="text-center" >
                              <h2>Add Event</h2>
                         </div>
                         <div class="cancel"  style="cursor:pointer; top:0; right:0; position:absolute; margin-bottom:10px; ">
@@ -267,7 +266,7 @@ $(document).ready(function () {
                             <div class="col-6" style="margin-top: 10px ; margin-bottom: 10px;" >
                                 <div class="row" >
                                     <label class="col-4" >Search Movie</label>
-                                    <input id ="keyword"  class="col-8" name="movie" value="" type="text" required  />
+                                    <input id ="keyword"  class="col-8" name="movie" value="" type="text" required placeholder="Search movie by title" />
                                 </div>
                             </div>
                             <div class="col-6" style="margin-top: 10px ; margin-bottom: 10px;" >
@@ -305,8 +304,9 @@ $(document).ready(function () {
                     listMovieHtml(keyword , jwt) ;
                 }
             });
-            $(".fas .fa-times").click(function() {
-                 $(".add-content").html('');
+            $(".cancel").click(function() {
+               console.log("empty");
+               $(".add-content").html('');
             })
             $(".addEvent").click(function(){
                 var startTime = formatTime($("input[name='startTime']").val()) ;
@@ -316,21 +316,26 @@ $(document).ready(function () {
                 var startTime = $("input[name='startTime']").val() ;
                 var subType = $("#sub-list").val() ;
                 var price = $("input[name='price']").val() ;
-                var event = {
-                    room : {
-                       id : roomId
-                    },
-                    movie : {
-                        id : movieId
-                    },
-                    subtitleType : {
-                        id : subType
-                    },
-                    start_date : startDate,
-                    start_time : startTime,
-                    price: price
+                if (price === '' || startTime === '' || movieId === '') {
+                    alert("Please complete all input");
+                } else {
+                    var event = {
+                        room : {
+                           id : roomId
+                        },
+                        movie : {
+                            id : movieId
+                        },
+                        subtitleType : {
+                            id : subType
+                        },
+                        start_date : startDate,
+                        start_time : startTime,
+                        price: price
+                    }
+                    addEventToTable(event , jwt) ;
                 }
-                addEventToTable(event , jwt) ;
+
             });
         }else {
            alert("vui long chon cac thong tin ngay ");
@@ -356,12 +361,12 @@ $(document).ready(function () {
                 $('.add-content').empty();
             })
             .catch(function(error) {
-               console.log(error) ;
-               if (error.responseJSON) {
-                 alert(error.responseJSON.message);
-               } else {
-                 alert("An error occurred.");
-               }
+                console.log(error);
+                if(error.responseJSON){
+                    alert(error.responseJSON.message);
+                } else {
+                    alert("An error was occur");
+                }
             });
    }
 
@@ -377,7 +382,7 @@ $(document).ready(function () {
 
    function deleteEventById(eventId , jwt) {
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/event/delete/" + eventId ;
+          var url = baseUrl + "/api/v1/admin/event/delete/" + eventId ;
                 return new Promise(function(resolve, reject) {
                   $.ajax({
                     type: "DELETE",
@@ -387,16 +392,15 @@ $(document).ready(function () {
                       resolve(data);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                      reject(errorThrown);
+                      reject(jqXHR);
                     }
                   });
                 });
    }
 
-
    function saveEvent(event, jwt) {
       var headers = { "Authorization": "Bearer " + jwt };
-      var url = "http://localhost:8080/api/v1/admin/event/save";
+      var url =  baseUrl + "/api/v1/admin/event/save";
       return new Promise(function(resolve, reject) {
         $.ajax({
           type: "POST",
@@ -409,11 +413,12 @@ $(document).ready(function () {
             resolve(data);
           },
           error: function(jqXHR, textStatus, errorThrown) {
-            reject(errorThrown);
+            reject(jqXHR);
           }
         });
       });
    }
+
    function listSubTypeHtml(jwt) {
         getSubType(jwt)
             .then(function(types){
@@ -429,7 +434,7 @@ $(document).ready(function () {
 
    function getSubType(jwt) {
          var headers = { "Authorization": "Bearer " + jwt };
-         var url = "http://localhost:8080/api/v1/admin/event/subtype" ;
+         var url = baseUrl + "/api/v1/admin/event/subtype" ;
          return new Promise(function(resolve, reject) {
            $.ajax({
              type: "GET",
@@ -466,7 +471,7 @@ $(document).ready(function () {
 
    function getMovieByKeyWord(keyword , jwt) {
          var headers = { "Authorization": "Bearer " + jwt };
-         var url = "http://localhost:8080/api/v1/admin/movie/find/" + keyword;
+         var url = baseUrl + "/api/v1/admin/movie/find/" + keyword;
          return new Promise(function(resolve, reject) {
            $.ajax({
              type: "GET",
@@ -482,10 +487,10 @@ $(document).ready(function () {
            });
          });
    }
+
    function listEventHtml(selectedRoom,selectedDate, jwt ) {
         findEventByRoomDate(selectedRoom,selectedDate, jwt )
           .then(function(events) {
-//                console.log(events);
                 if(events.length > 0) {
                     $(".table-body").empty() ;
                     var html = '';
@@ -503,6 +508,7 @@ $(document).ready(function () {
                     });
                     $(".table-body").append(html) ;
                 }else {
+                    $(".table-body").html('') ;
                     alert("no event available") ;
                 }
           })
@@ -515,6 +521,7 @@ $(document).ready(function () {
                }
           });
    }
+
    function formatTime(time) {
      const [hours, minutes] = time.split(":");
      const date = new Date();
@@ -529,7 +536,7 @@ $(document).ready(function () {
 
    function findEventByRoomDate(roomId , date, jwt) {
          var headers = { "Authorization": "Bearer " + jwt };
-         var url = "http://localhost:8080/api/v1/admin/event/find/"+roomId + "/" + date ;
+         var url = baseUrl + "/api/v1/admin/event/find/"+roomId + "/" + date ;
          return new Promise(function(resolve, reject) {
            $.ajax({
              type: "GET",
@@ -548,7 +555,7 @@ $(document).ready(function () {
 
    function getCinemaByCity(cityId) {
        var cinemas = [];
-       var url = "http://localhost:8080/api/v1/movies/cinemas/find/city/" + cityId;
+       var url = baseUrl + "/api/v1/movies/cinemas/find/city/" + cityId;
          $.ajax({
            url: url,
            method: 'GET',
@@ -559,6 +566,7 @@ $(document).ready(function () {
          });
          return cinemas;
    }
+
    function listCinemaHtml(cinemas) {
      $.each(cinemas, function(index, cinema) {
        $('#cinema-list').append(`<option value="${cinema.name}">${cinema.name}</option>`);
@@ -567,7 +575,7 @@ $(document).ready(function () {
 
    function getRoomByCinema(cinemaName, jwt) {
          var headers = { "Authorization": "Bearer " + jwt };
-         var url = "http://localhost:8080/api/v1/admin/room/cinema/" + cinemaName;
+         var url = baseUrl + "/api/v1/admin/room/cinema/" + cinemaName;
          return new Promise(function(resolve, reject) {
            $.ajax({
              type: "GET",
@@ -583,6 +591,7 @@ $(document).ready(function () {
            });
          });
        }
+
    function listRoomHtml(cinemaName , jwt) {
         getRoomByCinema(cinemaName , jwt)
           .then(function(rooms) {

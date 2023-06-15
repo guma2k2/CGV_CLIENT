@@ -31,6 +31,7 @@ $(document).ready(function () {
     })
     $("#update-cinema").click(function() {
         var cinemaId = $("input[name='cinemaId']").val();
+        console.log(cinemaId);
         var name = $("input[name='name']").val() ;
         var address = $("input[name='address']").val() ;
         var cinema_type = $("#types").val() ;
@@ -75,7 +76,7 @@ $(document).ready(function () {
     function handleUpdateCinema(cinema, formImage, jwt , cinemaId) {
           console.log(cinemaId) ;
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/cinema/update/" + cinemaId  ;
+          var url = baseUrl +  "/api/v1/admin/cinema/update/" + cinemaId  ;
           $.ajax({
               type: "PUT",
               contentType: "application/json",
@@ -97,7 +98,6 @@ $(document).ready(function () {
               }
           });
     }
-
     function setCinemaById(cinemaId, jwt) {
         getCinemaById(cinemaId, jwt)
             .then(function(cinema) {
@@ -146,16 +146,16 @@ $(document).ready(function () {
     }
     function cinemaImagesAddHtml() {
         var html = '<div class="col" >' +
-                                '<div class="p-2 border" >' +
-                                    '<div><label>Main Image</label></div>' +
-                                    '<div class="m-2">' +
-                                        '<img id="thumbnail" alt="Main image preview"  class="img-fluid" src=""/>' +
-                                    '</div>' +
-                                    '<div>' +
-                                        '<input type="file" id="fileImage" name="fileImage"  accept="image/png, image/jpeg" />' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' ;
+                        '<div class="p-2 border" >' +
+                            '<div><label>Main Image</label></div>' +
+                            '<div class="m-2">' +
+                                '<img id="thumbnail" alt="Main image preview"  class="img-fluid" src=""/>' +
+                            '</div>' +
+                            '<div>' +
+                                '<input type="file" id="fileImage" name="fileImage"  accept="image/png, image/jpeg" />' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' ;
         html+= '<div class="col" id="divExtraImage1">' +
                     '<div class="p-2 border" >' +
                         '<div id="extraImageHeader0">' +
@@ -178,7 +178,7 @@ $(document).ready(function () {
           var formData = new FormData(formImage[0]);
           console.log(formImage);
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/cinema/save/image/" + cinemaId ;
+          var url =  baseUrl + "/api/v1/admin/cinema/save/image/" + cinemaId ;
           $.ajax({
               type: "POST",
               cache: false,
@@ -188,7 +188,6 @@ $(document).ready(function () {
               headers: headers,
               data: formData,
               success: function(res) {
-                 alert(res);
                  checkCurrentCity(jwt);
               },
               error: function(jqXHR, textStatus, errorThrown) {
@@ -249,11 +248,28 @@ $(document).ready(function () {
                 '</div>' +
             '</div>' +
         '</div>' ;
-        return html ;
-    }
+        } else {
+            html+= '<div class="col" id="divExtraImage1">' +
+                    '<div class="p-2 border" >' +
+                        '<div id="extraImageHeader0">' +
+                            '<label>Extra Image #1</label>' +
+                        '</div>' +
+                        '<div class="m-2">' +
+                            '<img id="extraThumbnail0"' +
+                                 'alt="Extra image 0 preview" class="img-fluid"' +
+                                 'src=""/>' +
+                        '</div>' +
+                        '<div>' +
+                            '<input type="file" name="extraImage"' +
+                                   'accept="image/png, image/jpeg" />' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' ;
+        }
+    return html ;
     }
     function getCinemaById(cinemaId , jwt) {
-          var url = "http://localhost:8080/api/v1/admin/cinema/" + cinemaId ;
+          var url =  baseUrl + "/api/v1/admin/cinema/" + cinemaId ;
           var headers = { "Authorization": "Bearer " + jwt };
           return new Promise(function(resolve, reject) {
             $.ajax({
@@ -324,7 +340,7 @@ $(document).ready(function () {
             })
     }
     function getAllCinema(jwt) {
-          var url = "http://localhost:8080/api/v1/admin/cinema" ;
+          var url = baseUrl +  "/api/v1/admin/cinema" ;
           var headers = { "Authorization": "Bearer " + jwt };
           return new Promise(function(resolve, reject) {
             $.ajax({
@@ -343,7 +359,7 @@ $(document).ready(function () {
     }
     function handleAddCinema(cinema, formImage, jwt) {
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/cinema/save"  ;
+          var url =  baseUrl +  "/api/v1/admin/cinema/save"  ;
           $.ajax({
               type: "POST",
               contentType: "application/json",
@@ -397,6 +413,7 @@ $(document).ready(function () {
                     $("#update-cinema").show();
                     $("#add-cinema").hide();
                     $(".modal-title").text("Update cinema") ;
+                    $("input[name='cinemaId']").val(cinemaId);
                     setCinemaById(cinemaId, jwt);
                 })
             })
@@ -410,7 +427,7 @@ $(document).ready(function () {
             })
     }
     function getCinemaByCity(cityId , jwt) {
-          var url = "http://localhost:8080/api/v1/movies/cinemas/find/city/" + cityId ;
+          var url = baseUrl + "/api/v1/movies/cinemas/find/city/" + cityId ;
           var headers = { "Authorization": "Bearer " + jwt };
           return new Promise(function(resolve, reject) {
             $.ajax({
@@ -479,8 +496,8 @@ function showExtraImageThumbnail(fileInput, index) {
     };
 
     reader.readAsDataURL(file);
-    console.log(index);
-    console.log(extraImagesCount);
+//    console.log(index);
+//    console.log(extraImagesCount);
     if (index >= extraImagesCount - 1) {
         addNextExtraImageSection(index + 1);
     }
@@ -516,16 +533,16 @@ function removeExtraImage(index) {
    $("#divExtraImage" + index).remove();
 }
 function checkFileSize(fileInput) {
-    	fileSize = fileInput.files[0].size;
-    	if (fileSize > 1048576) {
-    		fileInput.setCustomValidity("You must choose an image less than " + 1048576 + " bytes!");
-    		fileInput.reportValidity();
-    		return false;
-    	} else {
-    		fileInput.setCustomValidity("");
-    		return true;
-    	}
+    fileSize = fileInput.files[0].size;
+    if (fileSize > 1048576) {
+        fileInput.setCustomValidity("You must choose an image less than " + 1048576 + " bytes!");
+        fileInput.reportValidity();
+        return false;
+    } else {
+        fileInput.setCustomValidity("");
+        return true;
     }
+}
 function showImageThumbnail(fileInput){
    var file = fileInput.files[0];
    console.log(file);

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class SeatDTO {
     private Long id ;
+    private Long roomId ;
     private String seat_name;
 
     private int row_num;

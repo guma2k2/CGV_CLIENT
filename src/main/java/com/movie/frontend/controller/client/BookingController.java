@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/vincinema")
 public class BookingController {
 
-
     @Autowired
     private SeatService seatService ;
 
@@ -69,6 +68,8 @@ public class BookingController {
             // get list of seat by room
             List<SeatDTO> seats = room.getSeats() ;
 
+
+
             // get combo with send request with method get and return
             ComboDTO[] combos = comboService.getCombos();
 
@@ -91,6 +92,7 @@ public class BookingController {
 
             // set list of seat was not in room and set those seats are empty status
             seatService.setListSeat(seats, row_num, col_num);
+
 
             model.addAttribute("types"  , types);
             model.addAttribute("event" , event );

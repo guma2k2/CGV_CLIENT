@@ -175,6 +175,7 @@ body {
 }
 
 .city-item {
+  margin-bottom: 5px;
   padding: 0;
   border: 1px solid #ccc;
   width: calc(10% - 5px);

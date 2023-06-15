@@ -19,13 +19,14 @@ $(document).ready(function () {
         prevButton.show() ;
         nextButton.show();
     }
-    $(".fa-check-circle").click(function() {
+      $(".fa-check-circle").click(function() {
         var movieId = $(this).attr("movieId") ;
         var status = $(this).hasClass("icon-green") ? false : true ;
         var element = $(this) ;
         handleUpdateStatus(movieId, jwt, status , element ) ;
     })
-    $("ul.pagination").on("click", "a.page-link", function(e) {
+
+      $("ul.pagination").on("click", "a.page-link", function(e) {
         e.preventDefault();
         var currentPage;
         if ($(this).attr("aria-label") === "Previous") {
@@ -57,6 +58,14 @@ $(document).ready(function () {
         sortField = "id" ;
         var action = '';
         handlePaginate(page, sortDir , sortField, keyword, jwt, action);
+    });
+    $(".actionRefresh").click(function() {
+        sortDir = "desc";
+        sortField = "id";
+        keyword = '';
+        page = 1 ;
+        var action = 'asdfa' ;
+        handlePaginate(page, sortDir , sortField, keyword, jwt, action );
     });
 
       $('.sort-link').click(function(e) {
@@ -104,6 +113,7 @@ $(document).ready(function () {
            clearInput();
            $('#selectedGenres').empty() ;
       })
+
       function clearInput() {
             $("input[name='title']").val('') ;
             $("input[name='description']").val('') ;
@@ -120,7 +130,8 @@ $(document).ready(function () {
             $("#thumbnail").attr("src" , "")  ;
             $("#fileImage").val('');
       }
-      $('#genre-list').on('change', function() {
+
+        $('#genre-list').on('change', function() {
         // Get selected options
         var selectedOptions = $(this).find('option:selected');
 
@@ -142,39 +153,39 @@ $(document).ready(function () {
          }
          $('#selectedGenres').html(html);
     });
-    $("#action-movie").click(function(e){
-        var title = $("input[name='title']").val() ;
-        var description = $("input[name='description']").val() ;
-        var duration_minutes = $("input[name='duration_minutes']").val() ;
-        var release_date = $("input[name='release_date']").val() ;
-        var language = $(".language-list").val() ; ;
-        var rating = $(".rating-list").val()  ;
-        var director = $("input[name='director']").val()  ;
-        var cast = $("input[name='cast']").val()  ;
-        var trailer = $("input[name='trailer']").val()   ;
-        var showing = $(".showing").val();
-        var genreList = genres  ;
-        console.log(genreList) ;
-        var movie = {
-            title: title,
-            description : description,
-            duration_minutes : duration_minutes,
-            release_date: release_date,
-            language : language ,
-            rating : rating ,
-            director: director ,
-            cast : cast ,
-            trailer : trailer ,
-            showing : showing ,
-            genres : genreList,
-        }
-        var formImage = $("#formImage") ;
-        handleAddMovie(movie, formImage, jwt) ;
-    })
-    $('a.fa-trash').click(function() {
-      var movieId = $(this).data('id');
-      handleDeleteMovie(movieId, jwt) ;
-    });
+        $("#action-movie").click(function(e){
+            var title = $("input[name='title']").val() ;
+            var description = $("input[name='description']").val() ;
+            var duration_minutes = $("input[name='duration_minutes']").val() ;
+            var release_date = $("input[name='release_date']").val() ;
+            var language = $(".language-list").val() ; ;
+            var rating = $(".rating-list").val()  ;
+            var director = $("input[name='director']").val()  ;
+            var cast = $("input[name='cast']").val()  ;
+            var trailer = $("input[name='trailer']").val()   ;
+            var showing = $(".showing").val();
+            var genreList = genres  ;
+            console.log(genreList) ;
+            var movie = {
+                title: title,
+                description : description,
+                duration_minutes : duration_minutes,
+                release_date: release_date,
+                language : language ,
+                rating : rating ,
+                director: director ,
+                cast : cast ,
+                trailer : trailer ,
+                showing : showing ,
+                genres : genreList,
+            }
+            var formImage = $("#formImage") ;
+            handleAddMovie(movie, formImage, jwt) ;
+        })
+        $('a.fa-trash').click(function() {
+          var movieId = $(this).data('id');
+          handleDeleteMovie(movieId, jwt) ;
+        });
 
 
     $("#update-movie").click(function(e) {
@@ -210,7 +221,7 @@ $(document).ready(function () {
    })
     function handleDeleteMovie(movieId, jwt) {
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/movie/delete/" + movieId ;
+          var url = baseUrl +  "/api/v1/admin/movie/delete/" + movieId ;
           $.ajax({
               type: "DELETE",
               contentType: "application/json",
@@ -230,7 +241,7 @@ $(document).ready(function () {
 
     // handle click on edit icon
     function getMovieById(movieId, jwt) {
-        var url = "http://localhost:8080/api/v1/movies/" + movieId ;
+        var url =  baseUrl +  "/api/v1/movies/" + movieId ;
           var headers = { "Authorization": "Bearer " + jwt };
           return new Promise(function(resolve, reject) {
             $.ajax({
@@ -287,7 +298,7 @@ $(document).ready(function () {
           var formData = new FormData(formImage[0]);
           console.log(formImage);
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/movie/save/poster/" + movieId ;
+          var url =  baseUrl +  "/api/v1/admin/movie/save/poster/" + movieId ;
           $.ajax({
               type: "POST",
               cache: false,
@@ -312,7 +323,7 @@ $(document).ready(function () {
      }
     function updateMovieById(movie, movieId,formImage, jwt) {
        var headers = { "Authorization": "Bearer " + jwt };
-       var url = "http://localhost:8080/api/v1/admin/movie/update/" + movieId ;
+       var url =  baseUrl +  "/api/v1/admin/movie/update/" + movieId ;
        $.ajax({
            type: "PUT",
            contentType: "application/json",
@@ -349,7 +360,7 @@ $(document).ready(function () {
     }
     function updateStatusById(movieId, jwt, status) {
             var headers = { "Authorization": "Bearer " + jwt };
-              var url = "http://localhost:8080/api/v1/admin/movie/update/status/" + movieId + "/" + status;
+              var url = baseUrl +  "/api/v1/admin/movie/update/status/" + movieId + "/" + status;
               return new Promise(function(resolve, reject) {
                   $.ajax({
                     type: "PUT",
@@ -386,9 +397,9 @@ $(document).ready(function () {
                        }
                 })
          }
-      function saveMovie(movie , jwt) {
+    function saveMovie(movie , jwt) {
          var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/movie/save";
+          var url =  baseUrl +  "/api/v1/admin/movie/save";
           return new Promise(function(resolve, reject) {
             $.ajax({
               type: "POST",
@@ -406,7 +417,7 @@ $(document).ready(function () {
             });
           });
     }
-      function handlePaginate(currentPage, sortDir, sortField, keyword , jwt, action) {
+    function handlePaginate(currentPage, sortDir, sortField, keyword , jwt, action) {
               getMoviePaginate(currentPage, sortDir, sortField, keyword , jwt)
                   .then(function(res) {
                       // get currentpage , sortDir, sortField , totalPage // data
@@ -509,7 +520,7 @@ $(document).ready(function () {
                       console.log(error);
                   })
           }
-      function getGenreString(genres) {
+    function getGenreString(genres) {
             var genreString = '[' ;
             if(genres.length > 0){
               for(var i = 0 ; i < genres.length ; i++) {
@@ -524,8 +535,8 @@ $(document).ready(function () {
             }
             return genreString ;
       }
-      function getMoviePaginate(currentPage, sortDir, sortField, keyword , jwt) {
-           var url = "http://localhost:8080/api/v1/admin/movie/paginate?pageNum="+ currentPage+
+    function getMoviePaginate(currentPage, sortDir, sortField, keyword , jwt) {
+           var url = baseUrl +  "/api/v1/admin/movie/paginate?pageNum="+ currentPage+
            "&sortDir="+sortDir+
            "&sortField=" + sortField +
            "&keyword=" + keyword ;

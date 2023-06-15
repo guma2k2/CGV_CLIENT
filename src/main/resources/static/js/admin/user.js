@@ -23,6 +23,16 @@ $(document).ready(function () {
             nextButton.show();
         }
     }
+    $(".actionRefresh").click(function() {
+        sortDir = "desc";
+        sortField = "id";
+        keyword = "";
+        page = 1 ;
+        var action = 'asdfa' ;
+        prevButton.hide() ;
+        nextButton.show();
+        handlePaginate(page, sortDir , sortField, keyword, jwt, action);
+    });
     $(".fa-check-circle").click(function() {
         var userId = $(this).attr("userId") ;
         var status = $(this).hasClass("icon-green") ? false : true ;
@@ -89,7 +99,7 @@ $(document).ready(function () {
       });
      $('a.fa-edit').click(function() {
         var userId = $(this).data('id');
-        $(".modal-title").text("UPDATE MOVIE : " + userId);
+        $(".modal-title").text("UPDATE USER : " + userId);
         $("#user-modal").modal("show") ;
         $("input[name='userId']").val(userId) ;
 
@@ -186,7 +196,7 @@ $(document).ready(function () {
 
      function handleAddUser(user, formImage, jwt) {
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/user/save" ;
+          var url = baseUrl + "/api/v1/admin/user/save" ;
           $.ajax({
               type: "POST",
               url: url,
@@ -211,7 +221,7 @@ $(document).ready(function () {
      function handleSavePhotoUser(formImage, userId) {
           var formData = new FormData(formImage[0]);
           var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/user/save/photo/" + userId ;
+          var url = baseUrl + "/api/v1/admin/user/save/photo/" + userId ;
           $.ajax({
               type: "POST",
               cache: false,
@@ -258,7 +268,7 @@ $(document).ready(function () {
             })
      }
      function getUserById(userId, jwt) {
-          var url = "http://localhost:8080/api/v1/admin/user/" +userId ;
+          var url = baseUrl + "/api/v1/admin/user/" +userId ;
           var headers = { "Authorization": "Bearer " + jwt };
           return new Promise(function(resolve, reject) {
             $.ajax({
@@ -277,7 +287,7 @@ $(document).ready(function () {
      }
      function updateStatusById(userId, jwt, status) {
         var headers = { "Authorization": "Bearer " + jwt };
-          var url = "http://localhost:8080/api/v1/admin/user/update/status/" + userId + "/" + status;
+          var url = baseUrl + "/api/v1/admin/user/update/status/" + userId + "/" + status;
           return new Promise(function(resolve, reject) {
               $.ajax({
                 type: "PUT",
@@ -317,7 +327,7 @@ $(document).ready(function () {
      function handleUpdateUser(user, userId, formImage, jwt) {
           var headers = { "Authorization": "Bearer " + jwt };
 //          console.log(jwt) ;
-          var url = "http://localhost:8080/api/v1/admin/user/update/" + userId ;
+          var url = baseUrl + "/api/v1/admin/user/update/" + userId ;
           $.ajax({
               type: "PUT",
               contentType: "application/json",
@@ -427,7 +437,7 @@ $(document).ready(function () {
                     }
                     $('a.fa-edit').click(function() {
                         var userId = $(this).data('id');
-                        $(".modal-title").text("UPDATE MOVIE : " + userId);
+                        $(".modal-title").text("UPDATE USER : " + userId);
                         $("#user-modal").modal("show") ;
                         $("input[name='userId']").val(userId) ;
                         $("#update-user").show();
@@ -471,7 +481,7 @@ $(document).ready(function () {
               return roleString ;
         }
      function getUserPaginate(currentPage, sortDir, sortField, keyword , jwt) {
-                 var url = "http://localhost:8080/api/v1/admin/user/paginate?pageNum="+ currentPage+
+                 var url = baseUrl + "/api/v1/admin/user/paginate?pageNum="+ currentPage+
                  "&sortDir="+sortDir+
                  "&sortField=" + sortField +
                  "&keyword=" + keyword ;
