@@ -50,4 +50,10 @@ public class AdminHomeController {
     public String logout(HttpSession session) {
         return "redirect:/vincinema";
     }
+
+
+    @GetMapping("/about")
+    public String about() {
+        return "admin/about";
+    }
 }
