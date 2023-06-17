@@ -71,7 +71,7 @@ public class LoginController {
 
         try{
             String isSuccess = userService.register(auth) ;
-            redirectAttributes.addFlashAttribute(",message" , isSuccess);
+            redirectAttributes.addFlashAttribute("message" , isSuccess);
             return "redirect:/vincinema/register";
         }catch (HttpClientErrorException e) {
             log.info(e.getResponseBodyAsString());
