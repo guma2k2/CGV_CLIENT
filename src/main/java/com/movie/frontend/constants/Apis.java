@@ -2,8 +2,8 @@ package com.movie.frontend.constants;
 
 public class Apis {
 
-    public static String base_url_docker = "http://web:8080/api/v1";
-    public static String base_url =   "http://localhost:8080/api/v1";
+    public static String base_url_docker =  "http://localhost:8080/api/v1";
+    public static String base_url = "http://web:8080/api/v1";
     public static String API_VERIFY_CODE = base_url+ "/auth/verify";
     public static String API_SAVE_SETTING = base_url+ "/admin/setting/save";
     public static String API_VERIFY_PASSWORD = base_url+ "/auth/verifyPassword";
