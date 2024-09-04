@@ -49,7 +49,7 @@ $(document).ready(function() {
        }
    function cancelBooking(jwtToken, bookingId) {
      $.ajax({
-       url: "http://localhost:8080/api/v1/delete/booking/" + bookingId,
+       url: "http://localhost:8082/api/v1/delete/booking/" + bookingId,
        type: 'DELETE',
        headers: {
          'Authorization': 'Bearer ' + jwtToken
