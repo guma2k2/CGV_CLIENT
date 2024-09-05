@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class Apis {
 
-    @Value("${api.url}")
-    public static String base_url ;
+
+    private static String base_url = "http://backend-movie:8082/api/v1";
     public static String API_VERIFY_CODE = base_url+ "/auth/verify";
     public static String API_SAVE_SETTING = base_url+ "/admin/setting/save";
     public static String API_VERIFY_PASSWORD = base_url+ "/auth/verifyPassword";
