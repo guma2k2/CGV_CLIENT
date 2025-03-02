@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/vincinema/admin/movie")
+@RequestMapping("/admin/movie")
 public class MovieAdminController {
 
     @Autowired
@@ -67,7 +67,7 @@ public class MovieAdminController {
             model.addAttribute("movies" , movies) ;
             return rootUrl + "/movie";
         }catch (HttpClientErrorException | JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
     }
 }

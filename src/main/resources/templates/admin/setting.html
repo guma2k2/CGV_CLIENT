@@ -8,7 +8,7 @@
         <div th:replace = "~{admin/fragment :: headers}" ></div>
 
         <div class="content" >
-            <form class="p-3" method="post" th:action="@{/vincinema/admin/settings/save}"  >
+            <form class="p-3" method="post" th:action="@{/admin/settings/save}"  >
                 <div th:if="${message != null}"  class="alert alert-success text-center" role="alert">
                     [[${message}]]
                 </div>

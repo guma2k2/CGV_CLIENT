@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/vincinema")
+@RequestMapping("")
 @Slf4j
 public class LoginController {
 
@@ -48,14 +48,58 @@ public class LoginController {
             Set<RoleDTO> roles = userDTO.getRoles();
             for(RoleDTO roleDTO : roles) {
                 if(roleDTO.getName().equals("ADMIN")) {
-                    return "redirect:/vincinema/admin";
+                    return "redirect:/admin";
                 }
             }
-            return "redirect:/vincinema";
+            return "redirect:/";
         }catch (HttpClientErrorException e) {
             log.info(e.getResponseBodyAsString());
             redirectAttributes.addFlashAttribute("message" , "Mật khẩu hoặc tài khoản không hợp lệ") ;
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
+        }
+    }
+
+
+
+
+    @PostMapping("/profile")
+    public String profile(HttpServletRequest request,
+                        RedirectAttributes redirectAttributes ,
+                        HttpSession session ,
+                        Model model
+    ) {
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String password = request.getParameter("password");
+        ProfileUpdateRequest profileUpdateRequest = new ProfileUpdateRequest(firstName, lastName, phoneNumber, password);
+        try{
+            JwtToken jwtToken = userService.updateProfile(profileUpdateRequest);
+            session.setAttribute("jwtToken" , jwtToken);
+            session.setAttribute("fullName" , jwtToken.getUser().getFullName());
+            return "redirect:/profile";
+        }catch (HttpClientErrorException e) {
+            log.info(e.getResponseBodyAsString());
+            redirectAttributes.addFlashAttribute("message" , "Mật khẩu hoặc tài khoản không hợp lệ") ;
+            return "redirect:/login";
+        }
+    }
+
+    @GetMapping("/authenticate")
+    public String authenticateWithGoogle(
+            @RequestParam("code") String code,
+            HttpSession session
+    ) {
+
+        try{
+            JwtToken jwtToken = userService.outboundUser(code);
+            session.setAttribute("jwtToken" , jwtToken);
+            session.setAttribute("fullName" , jwtToken.getUser().getFullName());
+            return "redirect:/";
+        }catch (HttpClientErrorException e) {
+            log.info(e.getResponseBodyAsString());
+            return "redirect:/login";
         }
     }
 
@@ -72,11 +116,11 @@ public class LoginController {
         try{
             String isSuccess = userService.register(auth) ;
             redirectAttributes.addFlashAttribute("message" , isSuccess);
-            return "redirect:/vincinema/register";
+            return "redirect:/register";
         }catch (HttpClientErrorException e) {
             log.info(e.getResponseBodyAsString());
             redirectAttributes.addFlashAttribute("message","Sai tài khoản hoặc mật khẩu");
-            return "redirect:/vincinema/register";
+            return "redirect:/register";
         }
     }
 
@@ -93,10 +137,10 @@ public class LoginController {
                 session.setAttribute("fullName" , jwtToken.getUser().getFullName());
             }
             redirectAttributes.addFlashAttribute("message", "Bạn đã đăng kí thành công");
-            return "redirect:/vincinema";
+            return "redirect:/";
         } catch (HttpClientErrorException e) {
             redirectAttributes.addFlashAttribute("message",e.getResponseBodyAsString());
-            return "redirect:/vincinema/register";
+            return "redirect:/register";
         }
     }
 
@@ -111,7 +155,7 @@ public class LoginController {
         log.info(inform);
         redirectAttributes.addFlashAttribute("message",
                 "Gửi yêu cầu thành công vui lòng check email") ;
-        return "redirect:/vincinema/forgotPassword";
+        return "redirect:/forgotPassword";
     }
     @GetMapping("/reset_password")
     public String resetPassword(@RequestParam("token")String code , Model model) {
@@ -135,10 +179,10 @@ public class LoginController {
         try {
             userService.confirmPassword(password, token);
             redirectAttributes.addFlashAttribute("messageSuccess" , "Lấy lại mật khẩu thành công");
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         } catch (HttpClientErrorException e) {
             redirectAttributes.addFlashAttribute("message" , e.getResponseBodyAsString());
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         }
 
     }
@@ -152,9 +196,9 @@ public class LoginController {
             session.removeAttribute("jwtToken");
             session.removeAttribute("fullName");
             model.addAttribute("message" , "Logout successful") ;
-            return "redirect:/vincinema";
+            return "redirect:/";
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         }
     }
 }

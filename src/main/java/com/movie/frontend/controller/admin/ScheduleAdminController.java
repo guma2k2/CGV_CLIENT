@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/vincinema/admin/schedule")
+@RequestMapping("/admin/schedule")
 public class ScheduleAdminController {
 
     private String rootUrl = "admin/schedule" ;
@@ -32,7 +32,7 @@ public class ScheduleAdminController {
             model.addAttribute("token" , jwt );
             return  rootUrl+ "/scheduleCRUD" ;
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
 
 

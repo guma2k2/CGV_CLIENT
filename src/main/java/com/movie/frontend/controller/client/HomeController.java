@@ -1,10 +1,17 @@
 package com.movie.frontend.controller.client;
 
 
+import com.movie.frontend.Model.JwtToken;
 import com.movie.frontend.Model.MovieDTO;
+import com.movie.frontend.Model.ProfileResponse;
 import com.movie.frontend.constants.Apis;
+import com.movie.frontend.exception.JwtExpirationException;
+import com.movie.frontend.service.UserService;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,14 +19,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 @Controller
-@RequestMapping("/vincinema")
+@RequestMapping("/")
+@Slf4j
 public class HomeController {
 
     @Value("${application.slider.image1}")
@@ -30,6 +40,9 @@ public class HomeController {
     private String urlSlider3 ;
     @Value("${application.slider.image4}")
     private String urlSlider4 ;
+
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping
@@ -70,5 +83,22 @@ public class HomeController {
         return "client/register" ;
     }
 
+    @GetMapping("/profile")
+    public String profile (Model model, RedirectAttributes redirectAttributes, HttpSession session) {
+        try{
+            ProfileResponse profile = userService.getProfile(session);
+            if (profile != null) {
+                model.addAttribute("firstName", profile.firstName());
+                model.addAttribute("lastName", profile.lastName());
+                model.addAttribute("email", profile.email());
+                model.addAttribute("phoneNumber", profile.phoneNumber());
+            }
+            return "client/profile";
+        }catch (HttpClientErrorException  | JwtExpirationException e) {
+            log.info(e.getMessage());
+            redirectAttributes.addFlashAttribute("message" , "Mật khẩu hoặc tài khoản không hợp lệ") ;
+            return "redirect:/login";
+        }
+    }
 
 }

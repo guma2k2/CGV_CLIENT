@@ -7,6 +7,7 @@ $(document).ready(function() {
       console.log(ticket);
       var html = ticketHtml(ticket) ;
       $(".modal-body-ticket").html(html);
+      generateQRCodeUrl(ticket);
       $("#ticket-modal").modal('show');
    });
    function getTicket(jwt, ticketId) {
@@ -29,12 +30,14 @@ $(document).ready(function() {
    }
    function ticketHtml(ticket) {
        let combosHTML = '';
-         if (ticket.combos) {
+         if (ticket.combos && ticket.combos.length > 0) {
            ticket.combos.forEach(cb => {
              combosHTML += `
                <div class="combo-item ml-2 mb-1">- ${cb.combo.title} - ${cb.combo.quantity}</div>
              `;
            });
+         } else {
+             combosHTML+='<div className="combo-item ml-2 mb-1">Không có combo nào</div>';
          }
        var html = `<div class="container d-flex flex-column" >
                            <h2 class="text-center">Vé xem phim</h2>
@@ -59,19 +62,14 @@ $(document).ready(function() {
                            </div>
                            <div class="cinema-label mb-2" style="opacity: 0.5; margin-top: 20px;"  >Combo</div>
                            ${combosHTML}
+                           <div class="d-flex justify-content-center mt-1">
+                                <div class="qrcode cinema-label"></div>
+                           </div>
                        </div>`;
        return html ;
    }
-   function generateQRCodeUrl(text) {
-     var qrcode = new QRCode({
-       text: text,
-       width: 256,
-       height: 256,
-       colorDark: "#000000",
-       colorLight: "#ffffff",
-       correctLevel: QRCode.CorrectLevel.H
-     });
-     return qrcode.toDataURL('image/png');
+   function generateQRCodeUrl(ticket) {
+       $(".qrcode").qrcode({ text: ticket.qrCode });
    }
 });
 

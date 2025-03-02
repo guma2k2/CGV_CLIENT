@@ -3,6 +3,7 @@ package com.movie.frontend.controller.client;
 import com.movie.frontend.Model.JwtToken;
 import com.movie.frontend.Model.TicketDTO;
 import com.movie.frontend.Model.UserDTO;
+import com.movie.frontend.Model.VNPayResponse;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.service.TicketService;
@@ -29,71 +30,88 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
-@RequestMapping("/vincinema")
+@RequestMapping("/tickets")
 @Slf4j
 public class TicketController {
 
 
     @Autowired
     private TicketService ticketService;
-    @PostMapping("/create/ticket")
-    public String createTicket(@RequestParam("STK") String STK ,
-                               @RequestParam("banking") String banking ,
-                               HttpServletRequest servletRequest,
-                               HttpSession session
-                               ) {
 
+
+    @GetMapping("/vn-pay-callback")
+    public String callbackPayment(
+            @RequestParam("vnp_OrderInfo") String bookingId,
+            @RequestParam("vnp_ResponseCode") String code,
+            @RequestParam("vnp_BankCode") String vnp_BankCode,
+            HttpSession session
+    ) {
+        if (code.equals("00")) {
+            String jwt = Utility.getJwt(session) ;
+            Long userId = ((JwtToken) session.getAttribute("jwtToken")).getUser().getId();
+            // API : CREATE_TICKET
+            try {
+                ticketService.createTicket(userId, Long.parseLong(bookingId), vnp_BankCode ,jwt, session);
+            } catch (JwtExpirationException e) {
+                throw new RuntimeException(e);
+            }
+            return "client/success";
+        }
+        return "client/failure";
+    }
+
+    @PostMapping("/create")
+    public String createTicket(
+       @RequestParam("banking") String banking ,
+       @RequestParam("totalPrice") Integer totalPrice ,
+       HttpServletRequest servletRequest,
+       HttpSession session
+    ) {
         try {
             String jwt = Utility.getJwt(session) ;
             if (jwt.equals("")) {
-                return "redirect:/vincinema/login";
+                return "redirect:/login";
             }
             Long eventId = Long.valueOf(servletRequest.getParameter("eventId"));
             Long bookingId = Long.valueOf(servletRequest.getParameter("bookingId"));
 
             log.info(String.valueOf(eventId));
-            log.info(String.valueOf(bookingId));
+            log.info(String.valueOf(totalPrice));
 
             if (bookingId == null) {
-                return "redirect:/vincinema/booking/" + eventId ;
+                return "redirect:/booking/" + eventId ;
             }
-//            log.info(String.valueOf(bookingId));
-//            log.info(jwt);
+            VNPayResponse res = ticketService.callbackPayment(totalPrice, bookingId, banking, jwt, session);
+            log.info(res.paymentUrl());
+            return "redirect:" + res.paymentUrl();
 
-            // get user from session
-            Long userId = ((JwtToken) session.getAttribute("jwtToken")).getUser().getId();
-
-            // API : CREATE_TICKET
-            ticketService.createTicket(userId, bookingId, banking ,jwt, session);
-            return "client/success";
         } catch (HttpClientErrorException e) {
             log.error("err: {}" , e.getMessage());
-            return "redirect:/vincinema";
+            return "redirect:/";
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         }
     }
-    @GetMapping("/ticket/history")
+    @GetMapping("/history")
     public String historyBookingTicket(HttpSession session ,
                                        Model model ) {
-
         try {
             String jwt = Utility.getJwt(session) ;
             if (jwt.equals("")) {
-                return "redirect:/vincinema/login";
+                return "redirect:/login";
             }
 
             Long userId = ((JwtToken) session.getAttribute("jwtToken")).getUser().getId();
-            // API : GET_TICKETS_BY_USER_ID ;
-
+            log.info(jwt);
+            log.info(userId.toString());
             List<TicketDTO> tickets = ticketService.findByUserId(jwt, userId, session) ;
             model.addAttribute("token" , jwt);
             model.addAttribute("tickets",tickets);
             return "client/ticket-history" ;
         } catch (HttpClientErrorException e) {
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         }
     }
 }

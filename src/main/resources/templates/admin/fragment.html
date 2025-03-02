@@ -22,37 +22,37 @@
       </header>
       <div class="menu">
         <div class="item dashboard active">
-          <a th:href="@{/vincinema/admin}"><i class="fas fa-desktop"></i>Dashboard</a>
+          <a th:href="@{/admin}"><i class="fas fa-desktop"></i>Dashboard</a>
         </div>
         <div class="item user">
-          <a class="sub-btn" th:href = "@{/vincinema/admin/user}" >
+          <a class="sub-btn" th:href = "@{/admin/user}" >
             <i class="fas fa-users"></i>
             Manage User
           </a>
         </div>
         <div class="item movie">
-          <a th:href="@{/vincinema/admin/movie}"><i class="fas fa-film"></i>Manage Movie</a>
+          <a th:href="@{/admin/movie}"><i class="fas fa-film"></i>Manage Movie</a>
         </div>
         <div class="item cinema">
-          <a th:href="@{/vincinema/admin/cinema}"><i class="fas fa-video"></i>Manage Cinema</a>
+          <a th:href="@{/admin/cinema}"><i class="fas fa-video"></i>Manage Cinema</a>
         </div>
         <div class="item room">
-          <a th:href="@{/vincinema/admin/room}"><i class="fas fa-kaaba"></i>Manage Room</a>
+          <a th:href="@{/admin/room}"><i class="fas fa-kaaba"></i>Manage Room</a>
         </div>
         <div class="item schedule">
-          <a class="sub-btn schedule" th:href="@{/vincinema/admin/schedule}">
+          <a class="sub-btn schedule" th:href="@{/admin/schedule}">
             <i class="fas fa-cogs"></i>
             Manage Schedule
           </a>
         </div>
         <div class="item">
-          <a class="sub-btn" th:href="@{/vincinema/admin/settings}">
+          <a class="sub-btn" th:href="@{/admin/settings}">
             <i class="fas fa-cogs"></i>
              Settings
           </a>
         </div>
         <div class="item">
-          <a th:href="@{/vincinema/admin/about}"><i class="fas fa-info-circle"></i>About</a>
+          <a th:href="@{/admin/about}"><i class="fas fa-info-circle"></i>About</a>
         </div>
       </div>
     </div>
@@ -65,9 +65,9 @@
       <div class="account" >
         <th:block th:if="${session.jwtToken != null}">
           <div class="d-flex justify-content-center align-items-center">
-            <span>Hello, </span>
-            <span class="ml-2" th:text ="${session.fullName}" ></span>
-            <a  th:href =@{/vincinema/logOut} class="btn btn-outline-primary ml-2 my-sm-0" type="submit">Log out</a>
+            <span>Xin chào, </span>
+            <a th:href="@{/profile}" class="ml-2" th:text ="${session.fullName}" ></a>
+            <a  th:href="@{/logOut}" class="btn btn-outline-primary ml-2 my-sm-0" type="submit">Đăng xuất</a>
           </div>
         </th:block>
       </div>

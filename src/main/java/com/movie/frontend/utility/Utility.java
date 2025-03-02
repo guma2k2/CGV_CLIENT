@@ -13,7 +13,7 @@ public class Utility {
         // Configure header with jwt to call API
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.ACCEPT , MediaType.APPLICATION_JSON_VALUE);
-        httpHeaders.set(HttpHeaders.AUTHORIZATION ,"Bearer "+token);
+        httpHeaders.set(HttpHeaders.AUTHORIZATION ,"Bearer "+ token);
         HttpEntity<?> request = new HttpEntity<>(httpHeaders);
         return request;
     }
