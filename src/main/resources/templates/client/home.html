@@ -52,7 +52,7 @@
                                 <button class="btn btn-primary btn-block" th:id="'buy-ticket-btn'+ ${movie.id}" th:movieId = "${movie.id}" >Buy</button>
                             </div>
                             <div class="col-6">
-                                <a th:href ="@{'/vincinema/movie/' + ${movie.id}}" class="btn btn-primary btn-block">Detail</a>
+                                <a th:href ="@{'/movie/' + ${movie.id}}" class="btn btn-primary btn-block">Detail</a>
                             </div>
                         </div>
                     </div>

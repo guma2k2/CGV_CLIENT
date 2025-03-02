@@ -169,7 +169,7 @@ $(document).ready(function() {
      eventsList+=cinemaName;
      eventsList+= '<div class="event-items d-flex" >'
      for(var i = 0 ; i < events.length ; i++) {
-        eventsList+= '<a href ="/vincinema/booking/'+ events[i].id +'" class= "event-item" ><li>'+ events[i].start_time  +'</li> </a>';
+        eventsList+= '<a href ="/booking/'+ events[i].id +'" class= "event-item" ><li>'+ events[i].start_time  +'</li> </a>';
      }
      eventsList+= '</div>'
      eventsList+= '</ul>' ;

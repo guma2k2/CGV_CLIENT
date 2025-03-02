@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("/vincinema/admin/user")
+@RequestMapping("/admin/user")
 @Controller
 
 public class UserController {
@@ -57,7 +57,7 @@ public class UserController {
             model.addAttribute("users" , users) ;
             return rootUrl + "/user" ;
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema/login" ;
+            return "redirect:/login" ;
         }
 
     }

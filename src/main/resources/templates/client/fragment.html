@@ -3,6 +3,7 @@
 <head th:fragment = "page_head(title)" >
     <meta charset="UTF-8">
     <title>[[${title}]]</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
@@ -21,7 +22,7 @@
     <nav class="navbar navbar-expand-lg " style="background: url('https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-top.png') repeat-x scroll left bottom transparent;
                                 background-size: 10px 135px; height: 135px;" >
         <div class="container" >
-            <a class="navbar-brand ml-2" th:href="@{/vincinema}">
+            <a class="navbar-brand ml-2" th:href="@{/}">
                 <img src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo.png" alt="Logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,15 +35,15 @@
                             PHIM
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a style="color: #2222222;line-height: 30px;" class="dropdown-item" th:href="@{/vincinema/movies/isShowing}">Phim đang chiếu</a>
-                            <a style="color: #2222222;line-height: 30px;" class="dropdown-item" th:href="@{/vincinema/movies/willShowing}">Phim sắp chiếu</a>
+                            <a style="color: #2222222;line-height: 30px;" class="dropdown-item" th:href="@{/movies/isShowing}">Phim đang chiếu</a>
+                            <a style="color: #2222222;line-height: 30px;" class="dropdown-item" th:href="@{/movies/willShowing}">Phim sắp chiếu</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a style="color: #2222222;line-height: 30px;" class="nav-link" th:href="@{/vincinema/cinemas}">RẠP CGV</a>
+                        <a style="color: #2222222;line-height: 30px;" class="nav-link" th:href="@{/cinemas}">RẠP CGV</a>
                     </li>
                     <li class="nav-item">
-                        <a style="color: #2222222;line-height: 30px;" class="nav-link" th:href="@{/vincinema/ticket/history}">VÉ CỦA TÔI</a>
+                        <a style="color: #2222222;line-height: 30px;" class="nav-link" th:href="@{/tickets/history}">VÉ CỦA TÔI</a>
                     </li>
                 </ul>
             </div>
@@ -50,18 +51,18 @@
                 <th:block th:if="${session.jwtToken == null}">
                     <div class="authenticate-action d-flex ">
                         <div class="auth-login mr-4">
-                            <a  th:href ="@{/vincinema/login}" class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="border: none; color: #2222222;line-height: 30px;">Login</a>
+                            <a  th:href ="@{/login}" class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="border: none; color: #2222222;line-height: 30px;">Login</a>
                         </div>
                         <div class="auth-register">
-                            <a th:href ="@{/vincinema/register}" class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="border: none; color: #2222222;line-height: 30px;">Register</a>
+                            <a th:href ="@{/register}" class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="border: none; color: #2222222;line-height: 30px;">Register</a>
                         </div>
                     </div>
                 </th:block>
                 <th:block th:if="${session.jwtToken != null}">
                     <div class="d-flex justify-content-center align-items-center">
                         <span style="color: #2222222;line-height: 30px;" >Hello, </span>
-                        <span style="color: #2222222;line-height: 30px;" class="ml-2" th:text ="${session.fullName}" ></span>
-                        <a style="color: #2222222;line-height: 30px;"  th:href =@{/vincinema/logOut} class="btn btn-outline-primary ml-2 my-sm-0" type="submit">Log out</a>
+                        <a th:href="@{/profile}" class="ml-2" th:text ="${session.fullName}" ></a>
+                        <a style="color: #2222222;line-height: 30px;"  th:href = "@{/logOut}" class="btn btn-outline-primary ml-2 my-sm-0" type="submit">Log out</a>
                     </div>
                 </th:block>
             </div>

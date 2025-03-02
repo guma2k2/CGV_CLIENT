@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("/vincinema/admin")
+@RequestMapping("/admin")
 @Slf4j
 public class AdminHomeController {
 
@@ -41,14 +41,14 @@ public class AdminHomeController {
             model.addAttribute("cites", cites) ;
             return "admin/home" ;
         } catch (HttpClientErrorException | JwtExpirationException e ) {
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         }
 
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        return "redirect:/vincinema";
+        return "redirect:/";
     }
 
 

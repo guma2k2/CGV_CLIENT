@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/vincinema/admin/settings")
+@RequestMapping("/admin/settings")
 public class SettingAdminController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class SettingAdminController {
             model.addAttribute("token", token) ;
             return  "admin/setting";
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
     }
     @PostMapping("/save")
@@ -56,9 +56,9 @@ public class SettingAdminController {
             String res = settingService.saveSetting(settings, token, session);
             model.addAttribute("token", token) ;
             redirectAttributes.addFlashAttribute("message" , res);
-            return  "redirect:/vincinema/admin/settings";
+            return  "redirect:/admin/settings";
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
     }
 }

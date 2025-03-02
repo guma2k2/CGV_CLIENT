@@ -68,7 +68,7 @@ $(document).ready(function() {
           filmHtml += '<div class="film-list" >';
           filmHtml+= `<div class="film-label" >
                                 <h3>
-                                  <a href="/vincinema/movie/${movie.id}" >${movie.title}</a>
+                                  <a href="/movie/${movie.id}" >${movie.title}</a>
                                   <span class="rating-icon" >C18</span>
                                 </h3>
                               </div>`;
@@ -92,7 +92,7 @@ $(document).ready(function() {
             filmHtml+= '<ul class="event-items d-flex " >';
             $.each(eventList, function(index, event) {
                 filmHtml+=`<li class="event-item" >
-                                <a href="/vincinema/booking/${event.id}" >
+                                <a href="/booking/${event.id}" >
                                     <span>${event.start_time}</span>
                                 </a>
                             </li>`;

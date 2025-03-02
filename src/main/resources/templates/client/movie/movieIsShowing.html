@@ -9,7 +9,7 @@
         <ol class="breadcrumb" style="width:100%; background: #f1f0e5;" >
             <div class="container d-flex" style="width:978px; margin: 0 auto; gap:5px; " >
                 <li class="breadcrumb-item d-flex " style="gap:5px;"  >
-                    <a th:href="@{/vincinema}">
+                    <a th:href="@{/}">
                         Home
                     </a>
                 </li>
@@ -27,7 +27,7 @@
 <div class="container category-title " style="width:978px; margin: 35px auto; border-bottom:3px solid #241d1e; position:relative; "  >
     <h1 style="font-size: 38px ; color: #222; font-weight:normal;" >Phim Đang Chiếu</h1>
     <div class="sub-category" style="position: absolute; right: 0 ; bottom: 10px; " >
-        <a th:href="@{/vincinema/movies/willShowing}" style="font-size: 20px; padding-left: 15px; color: #666; white-space: no-wrap; text-transform: uppercase;
+        <a th:href="@{/movies/willShowing}" style="font-size: 20px; padding-left: 15px; color: #666; white-space: no-wrap; text-transform: uppercase;
                             text-decoration:none; " >
             Phim Sắp Chiếu
         </a>
@@ -48,7 +48,7 @@
                                 <button class="btn btn-primary btn-block" th:id="'buy-ticket-btn'+ ${movie.id}" th:movieId = "${movie.id}" >Buy</button>
                             </div>
                             <div class="col-6">
-                                <a th:href ="@{'/vincinema/movie/' + ${movie.id}}" class="btn btn-primary btn-block">Detail</a>
+                                <a th:href ="@{'/movie/' + ${movie.id}}" class="btn btn-primary btn-block">Detail</a>
                             </div>
                         </div>
                     </div>

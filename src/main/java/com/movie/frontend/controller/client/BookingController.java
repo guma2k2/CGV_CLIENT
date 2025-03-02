@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
-@RequestMapping("/vincinema")
+@RequestMapping("/")
 public class BookingController {
 
     @Autowired
@@ -55,7 +55,7 @@ public class BookingController {
         try {
             String jwt = Utility.getJwt(session) ;
             if (jwt.equals("")) {
-                return "redirect:/vincinema/login";
+                return "redirect:/login";
             }
 //            log.info(jwt);
             HttpEntity<?> request = Utility.getHeaderWithJwt(jwt) ;
@@ -105,9 +105,9 @@ public class BookingController {
             return "client/booking" ;
         } catch (HttpClientErrorException e) {
             redirectAttributes.addAttribute("eventId", id);
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         }
 
         // list event by id
@@ -131,7 +131,7 @@ public class BookingController {
             RestTemplate restTemplate = new RestTemplate() ;
             String jwt = Utility.getJwt(session) ;
             if (jwt.equals("")) {
-                return "redirect:/vincinema/login";
+                return "redirect:/login";
             }
             HttpEntity<?> request = Utility.getHeaderWithJwt(jwt) ;
             //get event by event id
@@ -159,14 +159,14 @@ public class BookingController {
         } catch (HttpClientErrorException e) {
 //            log.info(e.getStatusText());
             if (e.getStatusCode().value() == 401 || e.getStatusCode().value() == 403){
-                return "redirect:/vincinema/login";
+                return "redirect:/login";
             }else {
                 redirectAttributes.addFlashAttribute("error", e.getResponseBodyAsString());
                 log.error( "err : {}", e.getResponseBodyAsString());
-                return "redirect:/vincinema/booking/" + eventId;
+                return "redirect:/booking/" + eventId;
             }
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema/login";
+            return "redirect:/login";
         }
 
 

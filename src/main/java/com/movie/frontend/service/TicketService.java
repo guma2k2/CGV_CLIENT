@@ -1,6 +1,8 @@
 package com.movie.frontend.service;
 
+import com.movie.frontend.Model.PaymentRequestVM;
 import com.movie.frontend.Model.TicketDTO;
+import com.movie.frontend.Model.VNPayResponse;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;
@@ -28,6 +30,14 @@ public class TicketService {
         String createTicketURL = Apis.API_CREATE_TICKET;
         HttpEntity<?> httpEntity = Utility.getHeaderWithJwtAndObject(token, ticket) ;
         HttpEntity<String> response = Utility.body(createTicketURL, HttpMethod.POST, httpEntity, String.class, session);
+    }
+    
+    public VNPayResponse callbackPayment(int ammount, Long bookingId, String bankCode , String token, HttpSession session) throws JwtExpirationException {
+        PaymentRequestVM request = new PaymentRequestVM(ammount, bankCode, bookingId);
+        String urlCallBack = Apis.API_CALLBACK_PAYMENT;
+        HttpEntity<?> httpEntity = Utility.getHeaderWithJwtAndObject(token, request) ;
+        HttpEntity<VNPayResponse> response = Utility.body(urlCallBack, HttpMethod.POST, httpEntity, VNPayResponse.class, session);
+        return response.getBody();
     }
 
     public List<TicketDTO> findByUserId(String token, Long userId, HttpSession session) throws JwtExpirationException {

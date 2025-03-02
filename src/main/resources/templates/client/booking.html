@@ -9,7 +9,7 @@
 <input type="hidden" name="eventId" th:value="${event.id}"   />
 <div class="container" >
     <div id="loading"></div>
-    <form  id="form-booking" method="post" th:action ="@{/vincinema/booking/create}" style=" width:100%; margin: 0 auto; "  >
+    <form  id="form-booking" method="post" th:action ="@{/booking/create}" style=" width:100%; margin: 0 auto; "  >
         <div th:if="${error != null}"  class="text-center alert alert-danger" role="alert"  >
             [[${error}]]
         </div>

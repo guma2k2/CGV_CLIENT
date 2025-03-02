@@ -356,7 +356,7 @@ $(document).ready(function () {
                     $.each(rooms , function(index , room) {
                         html+= '<tr>' +
                         '<td>'+
-                            '<a href = "/vincinema/admin/room/'+room.id +'/seats">' +
+                            '<a href = "/admin/room/'+room.id +'/seats">' +
                             room.id +
                             '</a>' +
                         '</td>' +
@@ -368,7 +368,7 @@ $(document).ready(function () {
                             '<a data-id="'+room.id+'"class="fas fa-edit fa-2x" href="#" style="color: #1b1918;"></a>' +
                         '</td>' +
                         '<td>' +
-                         '<a class="fas fa-tasks fa-2x icon-dark" href = "/vincinema/admin/room/' + room.id +'/seats" ></a>/' +
+                         '<a class="fas fa-tasks fa-2x icon-dark" href = "/admin/room/' + room.id +'/seats" ></a>/' +
                      '</td>'+
                     '</tr>' ;
                     })
@@ -548,7 +548,7 @@ $(document).ready(function () {
                 $.each(rooms,function(index, room) {
                     html += '<tr>' +
                                 '<td>' +
-                                    '<a href="/vincinema/admin/room/' + room.id + '/seats">' + room.id + '</a>' +
+                                    '<a href="/admin/room/' + room.id + '/seats">' + room.id + '</a>' +
                                 '</td>' +
                                 '<td>' + room.name + '</td>' +
                                 '<td>' + room.capacity + '</td>' +
@@ -558,7 +558,7 @@ $(document).ready(function () {
                                     '<a data-id="'+room.id+'"class="fas fa-edit fa-2x" href="#" style="color: #1b1918;"></a>' +
                                 '</td>' +
                                 '<td>' +
-                                    '<a class="fas fa-tasks fa-2x icon-dark" href = "/vincinema/admin/room/' + room.id +'/seats" ></a>/' +
+                                    '<a class="fas fa-tasks fa-2x icon-dark" href = "/admin/room/' + room.id +'/seats" ></a>/' +
                                 '</td>'+
                             '</tr>';
                 });

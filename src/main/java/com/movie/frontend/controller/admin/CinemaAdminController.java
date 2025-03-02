@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("/vincinema/admin/cinema")
+@RequestMapping("/admin/cinema")
 @Controller
 public class CinemaAdminController {
 
@@ -36,7 +36,7 @@ public class CinemaAdminController {
             model.addAttribute("cinemas", cinemas) ;
             return  rootUrl +  "/cinema" ;
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
     }
 

@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("/vincinema/admin/room")
+@RequestMapping("/admin/room")
 @Controller
 @Slf4j
 public class RoomAdminController {
@@ -66,7 +66,7 @@ public class RoomAdminController {
             model.addAttribute("token" , token );
             return rootUrl + "/room" ;
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
     }
 
@@ -82,9 +82,9 @@ public class RoomAdminController {
             log.info(String.valueOf(cityId));
             redirectAttributes.addFlashAttribute("cinemaName" , cinemaName);
             redirectAttributes.addFlashAttribute("cityId" , cityId);
-            return "redirect:/vincinema/admin/room";
+            return "redirect:/admin/room";
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
     }
 
@@ -130,7 +130,7 @@ public class RoomAdminController {
             model.addAttribute("token" , jwt) ;
             return rootUrl +  "/roomId" ;
         } catch (JwtExpirationException e) {
-            return "redirect:/vincinema" ;
+            return "redirect:/" ;
         }
 
     }
