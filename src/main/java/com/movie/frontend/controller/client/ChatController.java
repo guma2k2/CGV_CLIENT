@@ -1,7 +1,7 @@
 package com.movie.frontend.controller.client;
 
 
-import com.movie.frontend.Model.ChatMessage;
+import com.movie.frontend.model.ChatMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -9,7 +9,6 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @Slf4j

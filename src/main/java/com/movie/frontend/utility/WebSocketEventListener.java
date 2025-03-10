@@ -1,8 +1,8 @@
 package com.movie.frontend.utility;
 
 
-import com.movie.frontend.Model.ChatMessage;
-import com.movie.frontend.Model.ChatSeatType;
+import com.movie.frontend.model.ChatMessage;
+import com.movie.frontend.model.ChatSeatType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;

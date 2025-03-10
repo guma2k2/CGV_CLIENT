@@ -1,6 +1,6 @@
 package com.movie.frontend.controller.admin;
 
-import com.movie.frontend.Model.*;
+import com.movie.frontend.model.*;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.service.UserService;
 import com.movie.frontend.utility.Utility;
@@ -11,9 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequestMapping("/admin/user")
 @Controller

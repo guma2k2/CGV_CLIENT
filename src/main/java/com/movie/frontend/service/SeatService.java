@@ -1,6 +1,6 @@
 package com.movie.frontend.service;
 
-import com.movie.frontend.Model.SeatDTO;
+import com.movie.frontend.model.SeatDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

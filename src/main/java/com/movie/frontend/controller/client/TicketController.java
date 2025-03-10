@@ -1,19 +1,15 @@
 package com.movie.frontend.controller.client;
 
-import com.movie.frontend.Model.JwtToken;
-import com.movie.frontend.Model.TicketDTO;
-import com.movie.frontend.Model.UserDTO;
-import com.movie.frontend.Model.VNPayResponse;
-import com.movie.frontend.constants.Apis;
+import com.movie.frontend.model.JwtToken;
+import com.movie.frontend.model.TicketDTO;
+import com.movie.frontend.model.VNPayResponse;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.service.TicketService;
 import com.movie.frontend.utility.Utility;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Controller

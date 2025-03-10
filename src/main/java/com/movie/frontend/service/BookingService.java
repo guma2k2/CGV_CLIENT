@@ -1,10 +1,10 @@
 package com.movie.frontend.service;
 
 
-import com.movie.frontend.Model.BookingDTO;
-import com.movie.frontend.Model.ComboDTO;
-import com.movie.frontend.Model.EventDTO;
-import com.movie.frontend.Model.UserDTO;
+import com.movie.frontend.model.BookingDTO;
+import com.movie.frontend.model.ComboDTO;
+import com.movie.frontend.model.EventDTO;
+import com.movie.frontend.model.UserDTO;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;

@@ -1,8 +1,6 @@
 package com.movie.frontend.controller.admin;
 
-import com.movie.frontend.Model.CinemaDTO;
-import com.movie.frontend.Model.CityDTO;
-import com.movie.frontend.Model.Setting;
+import com.movie.frontend.model.Setting;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.service.SettingService;
 import com.movie.frontend.utility.Utility;

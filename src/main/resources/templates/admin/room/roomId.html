@@ -10,7 +10,7 @@
                 <div class="table-title" style="display:flex; justify-content: space-between; margin: 20px; padding:10px;" >
                     <h3>Manage Seats Of Room [[${room.id}]] </h3>
                     <button class="btn btn-warning" type="button" >
-                        <a th:href = "@{'/vincinema/admin/room/' + ${room.id}}" style="text-decoration : none; color: #443e3d;" >
+                        <a th:href = "@{'/admin/room/' + ${room.id}}" style="text-decoration : none; color: #443e3d;" >
                         BACK
                         </a>
                     </button>
@@ -22,7 +22,7 @@
                             <th:block th:each="colNum : ${#numbers.sequence(1, col_num)}">
                                 <th:block th:each ="seat : ${seats}">
                                     <th:block  th:if="${seat.row_num == rowNum and seat.column_num == colNum and seat.empty == false} " >
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).NORMAL}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).NORMAL}">
                                             <span class="seat normal" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                     th:data-column = "${colNum}"
@@ -30,7 +30,7 @@
                                                   th:data-id = ${seat.id}>
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).VIP}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).VIP}">
                                             <span class="seat vip" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
@@ -38,7 +38,7 @@
                                                   th:data-id = ${seat.id}>
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).SWEETBOX}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).SWEETBOX}">
                                             <span class="seat sweetbox" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
@@ -46,7 +46,7 @@
                                                   th:data-id = ${seat.id}>
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).KING}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).KING}">
                                             <span class="seat king" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
@@ -54,7 +54,7 @@
                                                   th:data-id = ${seat.id}>
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).COUPLE}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).COUPLE}">
                                             <span class="seat couple" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
@@ -62,7 +62,7 @@
                                                   th:data-id = ${seat.id}>
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).DELUXE}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).DELUXE}">
                                             <span class="seat deluxe" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"

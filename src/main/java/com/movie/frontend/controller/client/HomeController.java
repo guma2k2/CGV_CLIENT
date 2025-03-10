@@ -1,14 +1,11 @@
 package com.movie.frontend.controller.client;
 
 
-import com.movie.frontend.Model.JwtToken;
-import com.movie.frontend.Model.MovieDTO;
-import com.movie.frontend.Model.ProfileResponse;
+import com.movie.frontend.model.MovieDTO;
+import com.movie.frontend.model.ProfileResponse;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.service.UserService;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 @Controller

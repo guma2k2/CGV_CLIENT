@@ -1,8 +1,7 @@
 package com.movie.frontend.service;
 
-import com.movie.frontend.Model.CinemaDTO;
-import com.movie.frontend.Model.CityDTO;
-import com.movie.frontend.Model.MovieDTO;
+import com.movie.frontend.model.CinemaDTO;
+import com.movie.frontend.model.CityDTO;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;

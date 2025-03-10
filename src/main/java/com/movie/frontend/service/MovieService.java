@@ -1,9 +1,7 @@
 package com.movie.frontend.service;
 
-import com.movie.frontend.Model.DataContent;
-import com.movie.frontend.Model.GenreDTO;
-import com.movie.frontend.Model.MovieDTO;
-import com.movie.frontend.Model.UserDTO;
+import com.movie.frontend.model.DataContent;
+import com.movie.frontend.model.GenreDTO;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service

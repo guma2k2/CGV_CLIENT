@@ -14,7 +14,7 @@
     </div>
     <div class="row d-flex" style="width:100%" >
         <div class="col-8 border rounded" style="max-height: 670px;" >
-            <form th:action="@{/create/ticket}" method="post" id="form-payment">
+            <form th:action="@{/tickets/create}" method="post" id="form-payment">
                 <input id="eventId" type="hidden" name="eventId" th:value="${event.id}" />
                 <input id="bookingId" type="hidden" name="bookingId" th:value="${bookingId}" />
                 <input id="token" type="hidden" name="token" th:value="${token}" />

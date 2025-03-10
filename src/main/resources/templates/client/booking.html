@@ -53,32 +53,32 @@
                         <th:block th:each="colNum : ${#numbers.sequence(1, col_num)}">
                                 <th:block th:each ="seat : ${seats}">
                                     <th:block  th:if="${seat.row_num == rowNum and seat.column_num == colNum and seat.empty == false} " >
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).NORMAL}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).NORMAL}">
                                             <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat normal'}" th:text="${seat.seat_name}"
                                              th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).VIP}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).VIP}">
                                             <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat vip'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).SWEETBOX}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).SWEETBOX}">
                                             <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat sweetbox'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).KING}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).KING}">
                                             <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat king'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).COUPLE}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).COUPLE}">
                                             <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat couple'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>
                                         </th:block>
-                                        <th:block th:if ="${seat.type == T(com.movie.frontend.Model.SeatTypeDTO).DELUXE}">
+                                        <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).DELUXE}">
                                             <span th:class="${seat.paid == true ? 'seat unavailable ' : seat.reserved == true ? 'seat reserved' : 'seat deluxe'}" th:text="${seat.seat_name}"
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}" >
                                             </span>

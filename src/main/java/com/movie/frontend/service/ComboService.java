@@ -1,6 +1,6 @@
 package com.movie.frontend.service;
 
-import com.movie.frontend.Model.ComboDTO;
+import com.movie.frontend.model.ComboDTO;
 import com.movie.frontend.constants.Apis;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;

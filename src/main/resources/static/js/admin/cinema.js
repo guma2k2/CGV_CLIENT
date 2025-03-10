@@ -311,7 +311,6 @@ $(document).ready(function () {
                             '<td style="min-width:400px;">' + cinema.address + '</td>' +
                             '<td>' + cinema.cinema_type + '</td>' +
                             '<td>' + cinema.city.name + '</td>' +
-                            '<td><i class="fas fa-check-circle"></i></td>' +
                             '<td>' +
                             '<a data-id="' + cinema.id + '" class="fas fa-trash ml-2" href="#" style="color: #1b1918;"></a>' +
                             '<a data-id="' + cinema.id + '" class="fas fa-edit ml-2" href="#" style="color: #1b1918;"></a>' +
@@ -397,7 +396,6 @@ $(document).ready(function () {
                             '<td style="min-width:400px;">' + cinema.address + '</td>' +
                             '<td>' + cinema.cinema_type + '</td>' +
                             '<td>' + cinema.city.name + '</td>' +
-                            '<td><i class="fas fa-check-circle"></i></td>' +
                             '<td>' +
                             '<a data-id="' + cinema.id + '" class="fas fa-trash ml-2" href="#" style="color: #1b1918;"></a>' +
                             '<a data-id="' + cinema.id + '" class="fas fa-edit ml-2" href="#" style="color: #1b1918;"></a>' +
