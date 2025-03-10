@@ -1,14 +1,13 @@
 package com.movie.frontend.service;
 
-import com.movie.frontend.Model.PaymentRequestVM;
-import com.movie.frontend.Model.TicketDTO;
-import com.movie.frontend.Model.VNPayResponse;
+import com.movie.frontend.model.PaymentRequestVM;
+import com.movie.frontend.model.TicketDTO;
+import com.movie.frontend.model.VNPayResponse;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

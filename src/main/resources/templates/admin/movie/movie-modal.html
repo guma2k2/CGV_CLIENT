@@ -32,7 +32,7 @@
                             <div class="row mb-3 " >
                                 <label class="col-4">Language</label>
                                 <select class="language-list col-8" >
-                                    <th:block th:each="language : ${T(com.movie.frontend.Model.LanguageDTO).values()}" >
+                                    <th:block th:each="language : ${T(com.movie.frontend.model.LanguageDTO).values()}" >
                                         <option th:value="${language}" th:text="${language.label}" ></option>
                                     </th:block>
                                 </select>
@@ -40,7 +40,7 @@
                             <div class="row mb-3 " >
                                 <label class="col-4">Rating</label>
                                 <select class="rating-list col-8" >
-                                    <th:block th:each="rating : ${T(com.movie.frontend.Model.RatingDTO).values()}" >
+                                    <th:block th:each="rating : ${T(com.movie.frontend.model.RatingDTO).values()}" >
                                         <option th:value="${rating}" th:text="${rating.label}"></option>
                                     </th:block>
                                 </select>

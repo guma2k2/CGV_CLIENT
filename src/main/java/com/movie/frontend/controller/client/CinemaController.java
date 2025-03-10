@@ -1,7 +1,6 @@
 package com.movie.frontend.controller.client;
 
-import com.movie.frontend.Model.CityDTO;
-import com.movie.frontend.Model.MovieDTO;
+import com.movie.frontend.model.CityDTO;
 import com.movie.frontend.constants.Apis;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

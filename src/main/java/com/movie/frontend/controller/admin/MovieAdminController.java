@@ -1,6 +1,6 @@
 package com.movie.frontend.controller.admin;
 
-import com.movie.frontend.Model.*;
+import com.movie.frontend.model.*;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.service.MovieService;
 import com.movie.frontend.utility.Utility;

@@ -15,5 +15,12 @@
 <script type="text/javascript" th:src ="@{/js/admin/home.js}" ></script>
 <script type="text/javascript" th:src ="@{/js/admin/movie.js}" ></script>
 <script type="text/javascript" th:src ="@{/js/admin/common_form.js}" ></script>
+
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $(".item.active").removeClass("active");
+        $(".item.about").addClass("active");
+    })
+</script>
 </body>
 </html>

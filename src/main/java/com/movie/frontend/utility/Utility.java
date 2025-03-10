@@ -1,6 +1,6 @@
 package com.movie.frontend.utility;
 
-import com.movie.frontend.Model.JwtToken;
+import com.movie.frontend.model.JwtToken;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import jakarta.servlet.http.HttpSession;

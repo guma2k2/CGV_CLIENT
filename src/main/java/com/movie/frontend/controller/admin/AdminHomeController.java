@@ -1,10 +1,8 @@
 package com.movie.frontend.controller.admin;
 
 
-import com.movie.frontend.Model.CityDTO;
-import com.movie.frontend.Model.JwtToken;
+import com.movie.frontend.model.CityDTO;
 import com.movie.frontend.exception.JwtExpirationException;
-import com.movie.frontend.service.CinemaService;
 import com.movie.frontend.service.CityService;
 import com.movie.frontend.utility.Utility;
 import jakarta.servlet.http.HttpSession;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller

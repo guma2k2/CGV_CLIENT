@@ -1,8 +1,7 @@
 package com.movie.frontend.service;
 
-import com.movie.frontend.Model.DataContent;
-import com.movie.frontend.Model.RoomDTO;
-import com.movie.frontend.Model.UserDTO;
+import com.movie.frontend.model.DataContent;
+import com.movie.frontend.model.RoomDTO;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;
@@ -13,9 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 @Service
 public class RoomService

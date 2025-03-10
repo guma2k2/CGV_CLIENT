@@ -1,7 +1,6 @@
 package com.movie.frontend.controller.client;
 
-import com.movie.frontend.Model.*;
-import com.movie.frontend.constants.Apis;
+import com.movie.frontend.model.*;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.service.BookingService;
 import com.movie.frontend.service.ComboService;
@@ -20,13 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @Slf4j

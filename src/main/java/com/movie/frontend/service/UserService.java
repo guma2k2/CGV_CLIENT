@@ -1,7 +1,7 @@
 package com.movie.frontend.service;
 
 
-import com.movie.frontend.Model.*;
+import com.movie.frontend.model.*;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;
@@ -12,9 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

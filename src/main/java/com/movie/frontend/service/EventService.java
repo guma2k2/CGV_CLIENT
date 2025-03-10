@@ -1,6 +1,6 @@
 package com.movie.frontend.service;
 
-import com.movie.frontend.Model.EventDTO;
+import com.movie.frontend.model.EventDTO;
 import com.movie.frontend.constants.Apis;
 import com.movie.frontend.exception.JwtExpirationException;
 import com.movie.frontend.utility.Utility;
