@@ -220,8 +220,8 @@ $(document).ready(function () {
             .then(function(room) {
                 console.log(room) ;
                 var capacityArray = room.capacity.split("x");
-                var width = capacityArray[0];
-                var length = capacityArray[1];
+                var width = capacityArray[1];
+                var length = capacityArray[0];
                 var cityId = $("#city-list").val() ;
                 $("input[name='name']").val(room.name) ;
                 $("input[name='width']").val(width) ;

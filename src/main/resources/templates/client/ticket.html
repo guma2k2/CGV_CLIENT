@@ -8,7 +8,7 @@
     <input type="hidden" name="username" th:value="${session.fullName}"  />
 </th:block>
 <div class="container" style="background:#fdfcf0; min-height: 380px;">
-    <form id="overTime" th:action ="@{'/booking/' + ${event.id}}" style="display:hidden;" method="get" ></form>
+    <form id="overTime" th:action ="@{'/booking/' + ${event.id}}" style="display:none;" method="get" ></form>
     <div class="page-title row mt-4" style="background: #231d1c; padding: 5px ; margin-bottom: 30px; width:100%" >
         <h1 class="col-12 text-center" style="color: #fff; line-height: 32px; text-transform:uppercase; " >Thanh toán</h1>
     </div>
@@ -42,7 +42,7 @@
         <div class="col-4 d-flex flex-column "  >
             <div class="total mb-2 border rounded d-flex flex-column " style="background: #fff1ce; min-height: 76px;">
                 <div class="total-label text-center " style="font-weight: bold; height: 38px; " >Tổng cộng</div>
-                <div class="total-price text-center " style="color:#222; font-size:14px; line-height:18px; height: 38px; background:#d0cece;" >[[${totalPrice}]] đồng </div>
+                <div class="total-price text-center " style="color:#222; font-size:14px; line-height:18px; height: 38px; background:#d0cece;" >[[${formattedPrice}]] đồng </div>
             </div>
             <div class="total mb-2  border rounded d-flex flex-column " style="background: #fff1ce;min-height: 76px; ">
                 <div class="total-label text-center " style="font-weight: bold;height: 38px; " >Khuyễn mãi</div>
@@ -50,7 +50,7 @@
             </div>
             <div class="total mb-2  border rounded d-flex flex-column  " style="min-height: 76px;" >
                 <div class="total-label text-center " style="font-weight: bold; background:#e71a0f; height: 38px;  color: #fff;" >Tổng tiền thanh toán</div>
-                <div class="total-price text-center " style="color:#222; font-size:14px; line-height:18px; height: 38px; background:#d0cece;" >[[${totalPrice}]] đồng </div>
+                <div class="total-price text-center " style="color:#222; font-size:14px; line-height:18px; height: 38px; background:#d0cece;" >[[${formattedPrice}]] đồng </div>
             </div>
             <div class="right-info clock" >
                 <h3 id="clock-title text-center" style="background:#fff1ce; padding:10px; font-weight:bold; font-size:13px " >Countdown clock</h3>
@@ -108,7 +108,7 @@
                 <div class="row" >
                     <label class="col-4" >Price: </label>
                     <div class="col-8 pl-2">
-                        <span>[[${totalPrice}]] dong</span>
+                        <span>[[${formattedPrice}]] đồng</span>
                     </div>
                 </div>
                 <div class="row" >
@@ -120,7 +120,7 @@
                 <div class="row">
                     <label class="col-4" style="color: red;" >Tổng: </label>
                     <div class="col-8 pl-2 " >
-                       <span>[[${totalPrice}]] dong </span>
+                       <span>[[${formattedPrice}]] đồng </span>
                     </div>
                 </div>
             </div>

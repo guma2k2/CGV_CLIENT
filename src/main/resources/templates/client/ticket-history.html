@@ -17,6 +17,7 @@
                    <th>Tên rạp</th>
                    <th>Tên phòng</th>
                    <th>Xuất chiếu</th>
+                   <th>Thời gian tạo</th>
                    <th>Ghế</th>
                    <th>Combo</th>
                    <th>Tổng tiền</th>
@@ -33,6 +34,7 @@
                        <div class="startTime mb-2">[[${event.start_time}]]</div>
                        <div>[[${#temporals.format(event.start_date, 'dd-MM-yyyy')}]]</div>
                    </td>
+                   <td>[[${ticket.createdAt}]]</td>
                    <td>[[${ticket.seats}]]</td>
                    <td class="p-3" >
                        <ul>

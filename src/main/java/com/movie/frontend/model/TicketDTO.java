@@ -20,6 +20,5 @@ public class TicketDTO {
 
     private String phoneNumber;
     private String bank;
-
-
+    private String createdAt;
 }
