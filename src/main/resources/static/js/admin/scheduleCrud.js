@@ -97,10 +97,15 @@ $(document).ready(function () {
                             </select>
                         </div>
                     </div>
-                    <div class="col-6" style="margin-top: 10px ; margin-bottom: 10px;" >
-                        <div class="row" >
-                            <label class="col-4" >Select price</label>
-                            <input class="col-8" name="price"  value="${event.price}" type="number" required placeholder="EX : 4000000" />
+                    <div class="col-6" style="margin-top: 10px; margin-bottom: 10px;">
+                        <div class="row">
+                            <label class="col-4" for="price">Select price</label>
+                            <div class="col-8 d-flex align-items-center">
+                                <input id="price" min="1" name="price" value="${event.price}" 
+                                       type="number" required placeholder="EX: 4,000,000" 
+                                       class="form-control" style="padding-right: 50px;">
+                                <span class="ms-2 fw-bold">VND</span>
+                            </div>
                         </div>
                     </div>
                 </div>

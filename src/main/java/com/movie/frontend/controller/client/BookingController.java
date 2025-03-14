@@ -6,6 +6,7 @@ import com.movie.frontend.service.BookingService;
 import com.movie.frontend.service.ComboService;
 import com.movie.frontend.service.EventService;
 import com.movie.frontend.service.SeatService;
+import com.movie.frontend.utility.CurrencyUtil;
 import com.movie.frontend.utility.Utility;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -139,7 +140,9 @@ public class BookingController {
 
 
             //save bookings
-            BookingDTO booking = bookingService.setBooking(event, seats,totalPrice,usedCombo, user);
+            log.info(totalPrice.toString());
+            String formattedPrice = CurrencyUtil.formatToVND(totalPrice);
+            BookingDTO booking = bookingService.setBooking(event, seats, totalPrice,usedCombo, user);
 
             // get booking id when create success booking
             Long bookingId = bookingService.saveBooking(booking,jwt, session) ;
@@ -147,6 +150,7 @@ public class BookingController {
             model.addAttribute("event" , event);
             model.addAttribute("seats" ,seats );
             model.addAttribute("totalPrice" , totalPrice);
+            model.addAttribute("formattedPrice" , formattedPrice);
             model.addAttribute("bookingId" , bookingId);
             model.addAttribute("token" , jwt);
             return "client/ticket" ;

@@ -56,9 +56,16 @@ $(document).ready(function() {
     $("#combo" + $(this).attr("id").substr(4)).val(newValue);
     var currentTotal = parseInt($("#total-price").val());
     var currentComboPrice = parseInt($("#price-combo").val());
-    console.log(currentComboPrice)
-    $("#price-combo").val(currentComboPrice  + price);
-    $("#total-price").val(currentTotal + price);
+
+    var totalPriceCombo = currentComboPrice + price;
+    var totalPrice = currentTotal + price;
+    var formattedPrice = totalPrice.toLocaleString("vi-VN");
+    var formattedPriceCombo = totalPriceCombo.toLocaleString("vi-VN");
+
+    $("#total-price").val(totalPrice);
+    $("#total-price-formatted").val(formattedPrice);
+    $("#price-combo").val(totalPriceCombo);
+    $("#price-combo-formatted").val(formattedPriceCombo);
   })
 
   $(".fa-minus").click(function(e) {
@@ -70,9 +77,16 @@ $(document).ready(function() {
            $("#combo" + $(this).attr("id").substr(5)).val(newValue);
            var currentTotal = parseInt($("#total-price").val());
            var currentComboPrice = parseInt($("#price-combo").val());
-           console.log(currentComboPrice)
-           $("#price-combo").val(currentComboPrice  - price);
-           $("#total-price").val(currentTotal - price);
+
+           var totalPriceCombo = currentComboPrice - price;
+           var totalPrice = currentTotal - price;
+           var formattedPrice = totalPrice.toLocaleString("vi-VN");
+           var formattedPriceCombo = totalPriceCombo.toLocaleString("vi-VN");
+
+           $("#total-price").val(totalPrice);
+           $("#total-price-formatted").val(formattedPrice);
+           $("#price-combo").val(totalPriceCombo);
+           $("#price-combo-formatted").val(formattedPriceCombo);
         }
     })
 
@@ -121,11 +135,17 @@ $(document).ready(function() {
             switch(true) {
                case(num_sweetbox > 0):
                  var price = $("#total-price-sweetbox").data("price") ;
-                 $("#total-price").val(price*num_seat);
-                 break;
-               default:
+                 var totalPrice = price * num_seat;
+                 var formattedPrice = totalPrice.toLocaleString("vi-VN");
+                 $("#total-price").val(totalPrice);
+                 $("#total-price-formatted").val(formattedPrice);
+
+                default:
                  var price = $("#total-price-couple").data("price") ;
-                 $("#total-price").val(price*num_seat);
+                    var totalPrice = price * num_seat;
+                    var formattedPrice = totalPrice.toLocaleString("vi-VN");
+                    $("#total-price").val(totalPrice);
+                    $("#total-price-formatted").val(formattedPrice);
                  break;
             }
             $('#selected-seats').val(names.join(', '));
@@ -134,6 +154,7 @@ $(document).ready(function() {
          $('#selected-seats').val("");
          $("#seats-label").text("");
          $("#total-price").val("0");
+         $("#total-price-formatted").val("0");
       }
 
     } else {
@@ -161,19 +182,31 @@ $(document).ready(function() {
                  switch(true) {
                     case(num_normal > 0):
                       var price = $("#total-price-normal").data("price") ;
-                      $("#total-price").val(price*num_seat);
+                        var totalPrice = price * num_seat;
+                        var formattedPrice = totalPrice.toLocaleString("vi-VN");
+                        $("#total-price").val(totalPrice);
+                        $("#total-price-formatted").val(formattedPrice);
                       break;
                     case(num_vip > 0):
                        var price = $("#total-price-vip").data("price") ;
-                       $("#total-price").val(price*num_seat);
+                        var totalPrice = price * num_seat;
+                        var formattedPrice = totalPrice.toLocaleString("vi-VN");
+                        $("#total-price").val(totalPrice);
+                        $("#total-price-formatted").val(formattedPrice);
                       break;
                     case(num_king > 0):
                       var price = $("#total-price-king").data("price") ;
-                      $("#total-price").val(price*num_seat);
+                        var totalPrice = price * num_seat;
+                        var formattedPrice = totalPrice.toLocaleString("vi-VN");
+                        $("#total-price").val(totalPrice);
+                        $("#total-price-formatted").val(formattedPrice);
                       break;
                     default:
                       var price = $("#total-price-deluxe").data("price") ;
-                      $("#total-price").val(price*num_seat);
+                        var totalPrice = price * num_seat;
+                        var formattedPrice = totalPrice.toLocaleString("vi-VN");
+                        $("#total-price").val(totalPrice);
+                        $("#total-price-formatted").val(formattedPrice);
                       break;
                  }
                  $('#selected-seats').val(names.join(', '));
@@ -182,6 +215,7 @@ $(document).ready(function() {
               $('#selected-seats').val("");
               $("#seats-label").text("");
               $("#total-price").val("0");
+              $("#total-price-formatted").val("0");
            }
     }
 
