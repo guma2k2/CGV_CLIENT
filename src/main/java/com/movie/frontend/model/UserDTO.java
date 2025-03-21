@@ -18,6 +18,5 @@ public class UserDTO {
     private String verificationCode;
     private String forgotPassword ;
     private Set<RoleDTO> roles ;
-
-
+    private String phone_number;
 }

@@ -66,7 +66,7 @@
         <th:block th:if="${session.jwtToken != null}">
           <div class="d-flex justify-content-center align-items-center">
             <span>Xin chào, </span>
-            <a th:href="@{/profile}" class="ml-2" th:text ="${session.fullName}" ></a>
+            <a th:href="@{/admin/profile}" class="ml-2" th:text ="${session.fullName}" ></a>
             <a  th:href="@{/logOut}" class="btn btn-outline-primary ml-2 my-sm-0" type="submit">Đăng xuất</a>
           </div>
         </th:block>

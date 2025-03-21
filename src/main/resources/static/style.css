@@ -1,6 +1,14 @@
 body {
-    background-color: #fdfcf0;
+    background-color: #fdfcf0; /* Soft background color */
+    font-family: "Times New Roman", Times, serif; /* Classic serif font */
+    font-size: 16px; /* Standard text size */
+    color: #333; /* Dark gray for readability */
+    line-height: 1.6; /* Spacing for better readability */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    text-align: left; /* Standard left-aligned text */
 }
+
 .navbar a{
   color:rgb(34, 34, 34);
   font-size: 14px;
