@@ -27,7 +27,7 @@
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                     th:data-column = "${colNum}"
                                                   th:data-row = "${rowNum}"
-                                                  th:data-id = ${seat.id}>
+                                                  th:data-id = "${seat.id}">
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).VIP}">
@@ -35,7 +35,7 @@
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
                                                   th:data-row = "${rowNum}"
-                                                  th:data-id = ${seat.id}>
+                                                  th:data-id = "${seat.id}">
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).SWEETBOX}">
@@ -43,7 +43,7 @@
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
                                                   th:data-row = "${rowNum}"
-                                                  th:data-id = ${seat.id}>
+                                                  th:data-id = "${seat.id}">
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).KING}">
@@ -51,7 +51,7 @@
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
                                                   th:data-row = "${rowNum}"
-                                                  th:data-id = ${seat.id}>
+                                                  th:data-id = "${seat.id}">
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).COUPLE}">
@@ -59,7 +59,7 @@
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
                                                   th:data-row = "${rowNum}"
-                                                  th:data-id = ${seat.id}>
+                                                  th:data-id = "${seat.id}">
                                             </span>
                                         </th:block>
                                         <th:block th:if ="${seat.type == T(com.movie.frontend.model.SeatTypeDTO).DELUXE}">
@@ -67,7 +67,7 @@
                                                   th:data-name = "${seat.seat_name}" th:id = "${seat.seat_name}"
                                                   th:data-column = "${colNum}"
                                                   th:data-row = "${rowNum}"
-                                                  th:data-id = ${seat.id}>
+                                                  th:data-id = "${seat.id}">
                                             </span>
                                         </th:block>
                                     </th:block>
@@ -75,7 +75,7 @@
                                         <span class="seat none"
                                               th:data-column = "${colNum}"
                                               th:data-row = "${rowNum}"
-                                              th:data-id = ${seat.id}>
+                                              th:data-id = "${seat.id}">
                                         </span>
                                     </th:block>
                                 </th:block>

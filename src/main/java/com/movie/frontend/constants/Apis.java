@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 public class Apis {
 
 
-    private static String base_url = "http://backend-movie:8080/api/v1";
-//    private static String base_url = "http://localhost:8080/api/v1";
+//    private static String base_url = "http://backend-movie:8080/api/v1";
+    private static String base_url = "http://localhost:8080/api/v1";
 
     public static String API_VERIFY_CODE = base_url+ "/auth/verify";
     public static String API_SAVE_SETTING = base_url+ "/admin/setting/save";
@@ -18,6 +18,8 @@ public class Apis {
     public static String API_CONFIRM_PASSWORD = base_url+ "/auth/confirmPassword/{token}";
     public static String API_GET_MOVIES_IS_SHOWING = base_url+ "/movies/is/showing";
     public static String API_GET_MOVIES_FIRST_PAGE = base_url+ "/admin/movie/paginate/firstPage";
+    public static String API_GET_BOOKINGS_FIRST_PAGE = base_url+ "/admin/bookings/paginate?pageNum=1";
+
     public static String API_GET_ROLES = base_url+ "/admin/user/roles" ;
     public static String API_GET_USERS_FIRST_PAGE = base_url+ "/admin/user/paginate/firstPage";
     public static String API_GET_GENRES = base_url+ "/admin/movie/genres";

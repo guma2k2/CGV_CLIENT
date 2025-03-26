@@ -1,11 +1,8 @@
 package com.movie.frontend.controller.admin;
 
 
-import com.movie.frontend.model.CityDTO;
+import com.movie.frontend.model.*;
 import com.movie.frontend.exception.JwtExpirationException;
-import com.movie.frontend.model.JwtToken;
-import com.movie.frontend.model.ProfileResponse;
-import com.movie.frontend.model.ProfileUpdateRequest;
 import com.movie.frontend.service.CityService;
 import com.movie.frontend.service.UserService;
 import com.movie.frontend.utility.Utility;
@@ -37,6 +34,13 @@ public class AdminHomeController {
     @GetMapping
     public String adminHome(HttpSession session, Model model) {
         try {
+            if (session.getAttribute("jwtToken") != null) {
+                JwtToken jwtToken = (JwtToken) session.getAttribute("jwtToken");
+                UserDTO currentUser = jwtToken.getUser();
+                if (isCustomer(currentUser)) {
+                    return "redirect:/";
+                }
+            }
             String token = Utility.getJwt(session) ;
 //            log.info(token);
             List<CityDTO> cites = cityService.findAll(session) ;
@@ -52,6 +56,12 @@ public class AdminHomeController {
         }
 
     }
+
+    public boolean isCustomer(UserDTO currentUser) {
+        return currentUser.getRoles().stream()
+                .anyMatch(role -> "CLIENT".equals(role.getName()));
+    }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
