@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(".item.active").removeClass("active");
-    $(".item.movie").addClass("active");
+    $(".item.booking").addClass("active");
     var jwt = $("input[name='token']").val() ;
     var prevButton = $("ul.pagination li:first-child");
     var nextButton = $("ul.pagination li:last-child");
@@ -43,25 +43,6 @@ $(document).ready(function () {
         handlePaginate(page, jwt, action);
     });
 
-    // function getMovieById(movieId, jwt) {
-    //     var url =  baseUrl +  "/api/v1/movies/" + movieId ;
-    //       var headers = { "Authorization": "Bearer " + jwt };
-    //       return new Promise(function(resolve, reject) {
-    //         $.ajax({
-    //           type: "GET",
-    //           contentType: "application/json",
-    //           url: url,
-    //           headers: headers,
-    //           success: function(data) {
-    //             resolve(data);
-    //           },
-    //           error: function(jqXHR, textStatus, errorThrown) {
-    //             reject(errorThrown);
-    //           }
-    //         });
-    //       });
-    // }
-
     function handlePaginate(currentPage, jwt, action) {
           getBookingPaginate(currentPage, jwt)
               .then(function(res) {
@@ -81,7 +62,9 @@ $(document).ready(function () {
                       });
 
                       html += '<tr>' +
-                          '<td>' + booking.id + '</td>' +
+                          '<td>' +
+                          '<a href="/admin/booking/' + booking.id + '">' + booking.id + '</a>' + // Added booking.id as link text
+                          '</td>' +
                           '<td>' + booking.event.movie.title + '</td>' +
                           '<td>' +
                           '<span>' + booking.event.start_date + '</span>&nbsp;' +
@@ -95,6 +78,7 @@ $(document).ready(function () {
                           '<td>' + formattedAmount + '</td>' +
                           '<td>' + formattedDate + '</td>' +
                           '</tr>';
+
                   });
 
 
