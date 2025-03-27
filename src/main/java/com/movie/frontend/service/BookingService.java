@@ -42,4 +42,12 @@ public class BookingService {
         return response.getBody();
     }
 
+    public BookingDTO findById(HttpSession session, Long bookingId) throws JwtExpirationException {
+        String api = Apis.API_GET_BOOKING_DETAIL + bookingId;
+        String token = Utility.getJwt(session) ;
+        HttpEntity<?> request = Utility.getHeaderWithJwt(token) ;
+        ResponseEntity<BookingDTO> response = Utility.body(api , HttpMethod.GET , request , BookingDTO.class , session);
+        return response.getBody();
+    }
+
 }

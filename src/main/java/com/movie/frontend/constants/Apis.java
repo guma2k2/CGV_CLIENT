@@ -19,6 +19,7 @@ public class Apis {
     public static String API_GET_MOVIES_IS_SHOWING = base_url+ "/movies/is/showing";
     public static String API_GET_MOVIES_FIRST_PAGE = base_url+ "/admin/movie/paginate/firstPage";
     public static String API_GET_BOOKINGS_FIRST_PAGE = base_url+ "/admin/bookings/paginate?pageNum=1";
+    public static String API_GET_BOOKING_DETAIL = base_url+ "/admin/bookings/";
 
     public static String API_GET_ROLES = base_url+ "/admin/user/roles" ;
     public static String API_GET_USERS_FIRST_PAGE = base_url+ "/admin/user/paginate/firstPage";
