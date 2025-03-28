@@ -58,8 +58,7 @@ public class AdminHomeController {
     }
 
     public boolean isCustomer(UserDTO currentUser) {
-        return currentUser.getRoles().stream()
-                .anyMatch(role -> "CLIENT".equals(role.getName()));
+        return currentUser.getRole().equals("CUSTOMER");
     }
 
 

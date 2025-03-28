@@ -39,9 +39,7 @@ public class UserController {
             if(end > totalElements) {
                 end = totalElements ;
             }
-            List<RoleDTO> roles = userService.findAllRole(session) ;
             String token = Utility.getJwt(session) ;
-            model.addAttribute("roles" , roles);
             model.addAttribute("sortDir" , sortDir);
             model.addAttribute("sortField" , sortField );
             model.addAttribute("sizePage" ,sizePage );

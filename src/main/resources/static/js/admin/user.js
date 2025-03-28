@@ -29,6 +29,7 @@ $(document).ready(function () {
         keyword = "";
         page = 1 ;
         var action = 'asdfa' ;
+        $("div.action-search input[name='keyword']").val("");
         prevButton.hide() ;
         nextButton.show();
         handlePaginate(page, sortDir , sortField, keyword, jwt, action);
@@ -140,27 +141,17 @@ $(document).ready(function () {
         var lastName = $("input[name='lastName']").val() ;
         var email = $("input[name='email']").val() ;
         var password = $("input[name='password']").val() ;
-        var rolesArray = [];
-        var checkedRoles = $('.role-checkbox:checked');
-        checkedRoles.each(function() {
-           var roleId = $(this).val();
-           var roleName = $(this).attr('name');
-           var role = {
-              id : roleId,
-              name: roleName
-           }
-           rolesArray.push(role) ;
-        });
+        var role = $("#role-select").val();
+
         var user = {
             firstName: firstName,
             lastName: lastName,
             email: email,
             password : password,
-            roles: rolesArray
+            role: role
         }
         var formImage = $("#formImage") ;
         handleAddUser(user, formImage, jwt) ;
-
      })
      $("#update-user").click(function() {
          var userId = $("input[name='userId']").val() ;
@@ -170,24 +161,13 @@ $(document).ready(function () {
          var email = $("input[name='email']").val() ;
          var password = $("input[name='password']").val() ;
          var roles = [];
-         var checkedRoles = $('.role-checkbox:checked');
-         var formImage = $("#formImage") ;
-         checkedRoles.each(function() {
-            var roleId = $(this).val();
-            var roleName = $(this).attr('name');
-            var role = {
-               id : roleId,
-               name: roleName
-            }
-            roles.push(role) ;
-         });
-//         console.log(roles);
+         var role = $("#role-select").val();
          var user = {
              firstName: firstName,
              lastName: lastName,
              email: email,
              password: password,
-             roles: roles
+             role: role
          }
          console.log(user) ;
          handleUpdateUser(user, userId, formImage ,jwt) ;
@@ -252,11 +232,7 @@ $(document).ready(function () {
                 $("input[name='email']").val(user.email) ;
                 $("#thumbnail").attr("src" , user.photosImagePath);
                 $("input[name='password']").attr("placeholder" , "Fill the blank if you want to change password");
-                var roles = user.roles;
-//                console.log(roles) ;
-                $.each(roles, function(index, role) {
-                    $('input[type="checkbox"][value="' + role.id + '"]').prop('checked', true);
-                });
+                $("#role-select").val(user.role);
             })
             .catch(function(error) {
                console.log(error) ;
@@ -378,8 +354,6 @@ $(document).ready(function () {
                     $.each(users,function(index, user) {
                           var status = user.status ? '<td><i userId="' + user.id+'" class="fas fa-check-circle fa-2x icon-green"></i></td>':
                                                     '<td><i userId="' + user.id+ '" class="fas fa-check-circle fa-2x icon-dark"></i></td>';
-                          var roles = user.roles;
-                          var roleString = getRoleString(roles) ;
                           var photo = user.photo != null ? '<img class="imageTable" src="' +user.photosImagePath + '"/>'
                                                             : '<span class="fas fa-user fa-2x"></span>' ;
                           console.log(photo);
@@ -389,7 +363,7 @@ $(document).ready(function () {
                                     '<td>' + user.lastName + '</td>' +
                                     '<td>' + user.email + '</td>' +
                                     '<td>' + photo + '</td>' +
-                                    '<td>' + roleString + '</td>' +
+                                    '<td>' + user.role + '</td>' +
                                     status +
                                     '<td>' +
                                         '<a class="fas fa-trash fa-2x" href="#" style="color: #1b1918;" data-id="'+ user.id +'"></a>' +
@@ -465,21 +439,7 @@ $(document).ready(function () {
                     console.log(error);
                 })
         }
-     function getRoleString(roles) {
-              var roleString = '[' ;
-              if(roles.length > 0){
-                for(var i = 0 ; i < roles.length ; i++) {
-                    roleString+= roles[i].name;
-                    if(i < roles.length - 1) {
-                        roleString+= ", " ;
-                    }
-                  }
-                roleString+= ']';
-              } else {
-                roleString+="[empty]";
-              }
-              return roleString ;
-        }
+
      function getUserPaginate(currentPage, sortDir, sortField, keyword , jwt) {
                  var url = baseUrl + "/api/v1/admin/user/paginate?pageNum="+ currentPage+
                  "&sortDir="+sortDir+
