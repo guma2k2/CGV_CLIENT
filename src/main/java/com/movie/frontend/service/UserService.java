@@ -29,13 +29,7 @@ public class UserService {
         return response.getBody();
 
     }
-    public List<RoleDTO> findAllRole(HttpSession session) throws JwtExpirationException {
-        String api = Apis.API_GET_ROLES;
-        String token = Utility.getJwt(session) ;
-        HttpEntity<?> request = Utility.getHeaderWithJwt(token) ;
-        ResponseEntity<RoleDTO[]> response = Utility.body(api , HttpMethod.GET , request , RoleDTO[].class , session);
-        return List.of(response.getBody());
-    }
+
     public void logout(HttpSession session) throws JwtExpirationException {
         String api = Apis.API_AUTH_LOGOUT;
         String token = Utility.getJwt(session) ;
