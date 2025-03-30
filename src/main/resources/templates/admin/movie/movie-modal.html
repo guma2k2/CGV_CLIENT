@@ -22,7 +22,7 @@
 
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control" name="description" rows="2" placeholder="Enter movie description"></textarea>
+                                <input class="form-control" name="description" rows="2" placeholder="Enter movie description"/>
                             </div>
 
                             <div class="form-group">
@@ -75,13 +75,12 @@
                                     <option value="false">No</option>
                                 </select>
                             </div>
-
                             <div class="form-group">
                                 <label>Poster</label>
-                                <div>
-                                    <input type="file" name="image" id="fileImage" accept="image/png, image/jpeg"/>
-                                    <img id="thumbnail" alt="Movie Poster" class="mt-2 rounded" style="width: 80px; height: 100px; object-fit: cover; display: none;">
-                                </div>
+                                <form enctype="multipart/form-data" id="formImage" >
+                                    <input type="file" name="image"  id="fileImage" accept = "image/png , image/jpeg"/>
+                                    <img style="width:50px; height:50px; object-fit:cover; "  id = "thumbnail" alt="" src="">
+                                </form>
                             </div>
                         </div>
 
@@ -107,8 +106,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary d-none" id="update-movie">Update</button>
-                    <button type="button" class="btn btn-primary" id="action-movie">Add</button>
+                    <button type="button" class="btn btn-secondary" id="update-movie" >UPDATE</button>
+                    <button type="button" class="btn btn-primary" id="action-movie" >ADD</button>
                 </div>
             </div>
 

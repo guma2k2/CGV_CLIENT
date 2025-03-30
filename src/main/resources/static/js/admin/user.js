@@ -117,14 +117,14 @@ $(document).ready(function () {
         var action = '' ;
         handlePaginate(page, sortDir, sortField, keyword, jwt, action) ;
      })
-     $('a.fa-trash').click(function() {
-//            var userId = $(this).data('id');
-//            console.log(sortDir) ;
-//            console.log(sortField) ;
-//            console.log(page) ;
-//            handleDeleteMovie(movieId, jwt) ;
-        alert("Lazy to finish :))") ;
-     });
+//      $('a.fa-trash').click(function() {
+// //            var userId = $(this).data('id');
+// //            console.log(sortDir) ;
+// //            console.log(sortField) ;
+// //            console.log(page) ;
+// //            handleDeleteMovie(movieId, jwt) ;
+//         alert("Lazy to finish :))") ;
+//      });
      $(".addUser").click(function(e) {
           clearInput() ;
           $("#user-modal").modal("show") ;
@@ -366,7 +366,6 @@ $(document).ready(function () {
                                     '<td>' + user.role + '</td>' +
                                     status +
                                     '<td>' +
-                                        '<a class="fas fa-trash fa-2x" href="#" style="color: #1b1918;" data-id="'+ user.id +'"></a>' +
                                         '<a class="fas fa-edit fa-2x ml-3" href="#" style="color: #1b1918;" data-id="'+ user.id +'"></a>' +
                                     '</td>' +
                                 '</tr>';
@@ -424,9 +423,6 @@ $(document).ready(function () {
                              var element = $(this) ;
                              handleUpdateStatus(userId, jwt, status , element ) ;
                          })
-                    $('a.fa-trash').click(function() {
-                          alert("feature not found") ;
-                     });
                     $(".addUser").click(function(e) {
                           clearInput() ;
                           $("#user-modal").modal("show") ;

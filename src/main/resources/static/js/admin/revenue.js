@@ -32,7 +32,7 @@ $(document).ready(function () {
             })
             .catch(function (error) {
                 console.log(error);
-                alert("Failed to retrieve data for export.");
+                // alert("Failed to retrieve data for export.");
             });
     });
 
@@ -66,7 +66,7 @@ $(document).ready(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error("Export error:", textStatus, errorThrown);
-                alert("Failed to download the file.");
+                // alert("Failed to download the file.");
             }
         });
     }
@@ -92,11 +92,11 @@ $(document).ready(function () {
             })
             .catch(function (error) {
                 console.log(error);
-                if (error.responseJSON) {
-                    alert(error.responseJSON.message);
-                } else {
-                    alert("An error occurred.");
-                }
+                // if (error.responseJSON) {
+                //     alert(error.responseJSON.message);
+                // } else {
+                //     alert("An error occurred.");
+                // }
             });
     }
 

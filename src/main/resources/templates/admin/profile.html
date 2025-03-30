@@ -7,6 +7,12 @@
     <div class="main">
         <div th:replace = "~{admin/fragment :: headers}" ></div>
         <div class="content" >
+            <div class="text-center m-3 alert alert-danger" th:if ="${message != null}" role="alert">
+                [[${message}]]
+            </div>
+            <div class="text-center m-3 alert alert-success" th:if ="${messageSuccess != null}" role="alert">
+                [[${messageSuccess}]]
+            </div>
             <div class="container border rounded shadow-lg p-4 bg-light" style="width: 550px; height: 800px; margin: 10px auto;">
                 <h2 class="text-center form-title text-primary mb-4">Thông tin tài khoản</h2>
                 <form th:action="@{/admin/profile}" method="post">
