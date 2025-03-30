@@ -189,7 +189,6 @@ $(document).ready(function () {
 
 
     $("#update-movie").click(function(e) {
-      console.log("clicked");
       var movieId = $("input[name='movieId']").val() ;
       var title = $("input[name='title']").val() ;
       var description = $("input[name='description']").val() ;
