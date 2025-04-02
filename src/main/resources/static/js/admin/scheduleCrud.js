@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    let eventIdModify = null;
    $(".item.active").removeClass("active");
    $(".item.schedule").addClass("active");
    $(".sub-btn .schedule").next(".sub-menu").slideToggle();
@@ -36,8 +38,10 @@ $(document).ready(function () {
         listEventHtml(selectedRoom , selectedDate , jwt) ;
         $("table").on("click", ".fas.fa-trash", function() {
           var eventId = $(this).data("id");
-          handleDeleteEvent(eventId , jwt);
-          $('tr[data-id="' + eventId + '"]').remove();
+            eventIdModify = eventId;
+            $('#confirmDialog').modal('show');
+            $('#modal-confirm-body').text('Do you want to delete this event?');
+
         });
         $("table").on("click" , ".fas.fa-edit" , function() {
            var eventId = $(this).data("id");
@@ -45,6 +49,13 @@ $(document).ready(function () {
 
         });
    });
+
+    $('#btn-yes-confirm').click(function() {
+        if (eventIdModify != null) {
+            handleDeleteEvent(eventId , jwt);
+            $('tr[data-id="' + eventId + '"]').remove();
+        }
+    });
 
    function handleUpdateEvent(eventId, jwt) {
         getEventById(eventId, jwt)
@@ -381,7 +392,12 @@ $(document).ready(function () {
             alert("Delete successful") ;
         })
         .catch(function(error) {
-            console.log("Error get event: " + error);
+            console.log(error);
+            if(error.responseJSON){
+                alert(error.responseJSON.message);
+            } else {
+                alert("An error was occur");
+            }
          });
    }
 

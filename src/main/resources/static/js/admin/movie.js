@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $(".item.active").removeClass("active");
     $(".item.movie").addClass("active");
+    let movieIdToDelete = null;
     var jwt = $("input[name='token']").val() ;
     var sortDir = $("input[name='sortDir']").val() ;
     var sortField = $("input[name='sortField']").val() ;
@@ -182,10 +183,18 @@ $(document).ready(function () {
             var formImage = $("#formImage") ;
             handleAddMovie(movie, formImage, jwt) ;
         })
-        $('a.fa-trash').click(function() {
-          var movieId = $(this).data('id');
-          handleDeleteMovie(movieId, jwt) ;
-        });
+    $('a.fa-trash').click(function() {
+      var movieId = $(this).data('id');
+      movieIdToDelete = movieId;
+      $('#confirmDialog').modal('show');
+      $('#modal-confirm-body').text('Do you want to delete this movie');
+    });
+
+    $('#btn-yes-confirm').click(function() {
+        if (movieIdToDelete != null) {
+            handleDeleteMovie(movieIdToDelete, jwt) ;
+        }
+    });
 
 
     $("#update-movie").click(function(e) {
@@ -229,6 +238,7 @@ $(document).ready(function () {
               success: function() {
                  alert("delete successful") ;
                  $("#confirmDialog").modal("hide") ;
+                 movieIdToDelete = null;
                   var action = '' ;
                   handlePaginate(page, sortDir, sortField, keyword , jwt, action) ;
               },
@@ -290,9 +300,57 @@ $(document).ready(function () {
                  }
             })
             .catch(function(error) {
-                console.log(error) ;
+                console.log(error);
+                if(error.responseJSON){
+                    alert(error.responseJSON.message);
+                } else {
+                    alert("An error was occur");
+                }
             })
     }
+
+
+    function updateMovieById(movie, movieId,formImage, jwt) {
+        updateMovie(movie, movieId,formImage, jwt)
+            .then(function(movie) {
+                var movieId = movie.id ;
+                alert("update successful") ;
+                handleSavePoster(formImage, movieId);
+                clearInput() ;
+                $("#movie-modal").modal("hide") ;
+            })
+            .catch(function(error){
+                console.log(error);
+                if(error.responseJSON){
+                    alert(error.responseJSON.message);
+                } else {
+                    alert("An error was occur");
+                }
+            })
+    }
+
+    function updateMovie(movie, movieId,formImage, jwt) {
+        var headers = { "Authorization": "Bearer " + jwt };
+        var url =  baseUrl +  "/api/v1/admin/movie/update/" + movieId ;
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                type: "PUT",
+                contentType: "application/json",
+                url: url,
+                headers: headers,
+                data: JSON.stringify(movie),
+                dataType: 'json',
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                }
+            });
+        });
+    }
+
+
     function handleSavePoster(formImage, movieId) {
           var formData = new FormData(formImage[0]);
           console.log(formImage);
@@ -320,28 +378,8 @@ $(document).ready(function () {
               }
           });
      }
-    function updateMovieById(movie, movieId,formImage, jwt) {
-       var headers = { "Authorization": "Bearer " + jwt };
-       var url =  baseUrl +  "/api/v1/admin/movie/update/" + movieId ;
-       $.ajax({
-           type: "PUT",
-           contentType: "application/json",
-           url: url,
-           headers: headers,
-           data: JSON.stringify(movie),
-           dataType: 'json',
-           success: function(movie) {
-               var movieId = movie.id ;
-               alert("update successful") ;
-               handleSavePoster(formImage, movieId);
-               clearInput() ;
-               $("#movie-modal").modal("hide") ;
-           },
-           error: function(jqXHR, textStatus, errorThrown) {
-               console.log("Error updating movie: " + errorThrown);
-           }
-       });
-    }
+
+
     function handleAddMovie(movie, formImage, jwt) {
         saveMovie(movie, jwt)
             .then(function(movie) {
@@ -349,12 +387,17 @@ $(document).ready(function () {
                 page = 1 ;
                 var movieId = movie.id ;
                 console.log(movieId);
-                handleSavePoster(formImage,movieId );
+                handleSavePoster(formImage, movieId );
                 $("#movie-modal").modal("hide") ;
                 clearInput() ;
             })
             .catch(function(error){
-                console.log(error) ;
+                console.log(error);
+                if(error.responseJSON){
+                    alert(error.responseJSON.message);
+                } else {
+                    alert("An error was occur");
+                }
             })
     }
     function updateStatusById(movieId, jwt, status) {
@@ -395,7 +438,7 @@ $(document).ready(function () {
                          alert("An error occurred.");
                        }
                 })
-         }
+    }
     function saveMovie(movie , jwt) {
          var headers = { "Authorization": "Bearer " + jwt };
           var url =  baseUrl +  "/api/v1/admin/movie/save";
@@ -501,12 +544,17 @@ $(document).ready(function () {
                             handleUpdateMovie(movieId, jwt) ;
                           });
                       $('a.fa-trash').click(function() {
-                            var movieId = $(this).data('id');
-                            console.log(sortDir) ;
-                            console.log(sortField) ;
-                            console.log(page) ;
-                            handleDeleteMovie(movieId, jwt) ;
-                       });
+                          var movieId = $(this).data('id');
+                          movieIdToDelete = movieId;
+                          $('#confirmDialog').modal('show');
+                          $('#modal-confirm-body').text('Do you want to delete this movie');
+                      });
+
+                      $('#btn-yes-confirm').click(function() {
+                          if (movieIdToDelete != null) {
+                              handleDeleteMovie(movieIdToDelete, jwt) ;
+                          }
+                      });
                       $(".btn-add").click(function(e) {
                           clearInput();
                           $("#movie-modal").modal("show") ;
