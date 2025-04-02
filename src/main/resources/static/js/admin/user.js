@@ -23,6 +23,10 @@ $(document).ready(function () {
             nextButton.show();
         }
     }
+
+    $(".btn-yes-confirm").click(function () {
+
+    })
     $(".actionRefresh").click(function() {
         sortDir = "desc";
         sortField = "id";
@@ -117,14 +121,7 @@ $(document).ready(function () {
         var action = '' ;
         handlePaginate(page, sortDir, sortField, keyword, jwt, action) ;
      })
-//      $('a.fa-trash').click(function() {
-// //            var userId = $(this).data('id');
-// //            console.log(sortDir) ;
-// //            console.log(sortField) ;
-// //            console.log(page) ;
-// //            handleDeleteMovie(movieId, jwt) ;
-//         alert("Lazy to finish :))") ;
-//      });
+
      $(".addUser").click(function(e) {
           clearInput() ;
           $("#user-modal").modal("show") ;
@@ -137,6 +134,7 @@ $(document).ready(function () {
         $("#user-modal").modal("hide") ;
      })
      $("#add-user").click(function() {
+
         var firstName = $("input[name='firstName']").val() ;
         var lastName = $("input[name='lastName']").val() ;
         var email = $("input[name='email']").val() ;
@@ -160,7 +158,6 @@ $(document).ready(function () {
          var lastName = $("input[name='lastName']").val() ;
          var email = $("input[name='email']").val() ;
          var password = $("input[name='password']").val() ;
-         var roles = [];
          var role = $("#role-select").val();
          var user = {
              firstName: firstName,
@@ -169,35 +166,56 @@ $(document).ready(function () {
              password: password,
              role: role
          }
-         console.log(user) ;
+         var formImage = $("#formImage") ;
          handleUpdateUser(user, userId, formImage ,jwt) ;
 
       })
 
      function handleAddUser(user, formImage, jwt) {
-          var headers = { "Authorization": "Bearer " + jwt };
-          var url = baseUrl + "/api/v1/admin/user/save" ;
-          $.ajax({
-              type: "POST",
-              url: url,
-              dataType: 'json',
-              contentType: "application/json",
-              headers: headers,
-              data : JSON.stringify(user) ,
-              success: function(res) {
-                  console.log(res);
-                  var userId = res.id;
-                  alert("save user : " + userId + "success");
-                  handleSavePhotoUser(formImage, userId);
-                  clearInput() ;
-                  $("#user-modal").modal("hide");
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                  var errorData = JSON.parse(jqXHR.responseText);
-                   alert(errorData.message);
-              }
-          });
+         saveUser(user, formImage, jwt)
+             .then(function(res) {
+                 console.log(res);
+                 var userId = res.id;
+                 alert("save user with id : " + userId + " success");
+                 handleSavePhotoUser(formImage, userId);
+                 clearInput() ;
+                 $("#user-modal").modal("hide");
+             })
+             .catch(function(error){
+                 console.log(error);
+                 if(error.responseJSON){
+                     alert(error.responseJSON.message);
+                 } else {
+                     alert("An error was occur");
+                 }
+             })
      }
+
+
+
+    function saveUser(user, formImage, jwt) {
+        var headers = { "Authorization": "Bearer " + jwt };
+        var url = baseUrl + "/api/v1/admin/user/save" ;
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: url,
+                headers: headers,
+                data: JSON.stringify(user),
+                dataType: 'json',
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                }
+            });
+        });
+    }
+
+
+
      function handleSavePhotoUser(formImage, userId) {
           var formData = new FormData(formImage[0]);
           var headers = { "Authorization": "Bearer " + jwt };
@@ -301,28 +319,47 @@ $(document).ready(function () {
             })
      }
      function handleUpdateUser(user, userId, formImage, jwt) {
-          var headers = { "Authorization": "Bearer " + jwt };
-//          console.log(jwt) ;
-          var url = baseUrl + "/api/v1/admin/user/update/" + userId ;
-          $.ajax({
-              type: "PUT",
-              contentType: "application/json",
-              url: url,
-              headers: headers,
-              data: JSON.stringify(user),
-              dataType: 'json',
-              success: function(res) {
-                  var userId = res.id ;
-                  console.log(res);
-                  alert("update user success");
-                  handleSavePhotoUser(formImage, userId);
-                  clearInput() ;
-                  $("#user-modal").modal("hide");
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-              }
-          });
+         updateUser(user, userId, formImage, jwt)
+             .then(function(res) {
+                 var userId = res.id ;
+                 console.log(res);
+                 alert("update user success");
+                 handleSavePhotoUser(formImage, userId);
+                 clearInput() ;
+                 $("#user-modal").modal("hide");
+             })
+             .catch(function(error){
+                 console.log(error);
+                 if(error.responseJSON){
+                     alert(error.responseJSON.message);
+                 } else {
+                     alert("An error was occur");
+                 }
+             })
      }
+
+
+    function updateUser(user, userId, formImage, jwt) {
+        var headers = { "Authorization": "Bearer " + jwt };
+        var url = baseUrl + "/api/v1/admin/user/update/" + userId ;
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                type: "PUT",
+                contentType: "application/json",
+                url: url,
+                headers: headers,
+                data: JSON.stringify(user),
+                dataType: 'json',
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(errorThrown);
+                }
+            });
+        });
+    }
+
      function clearInput() {
         $("input[name='firstName']").val('') ;
         $("input[name='lastName']").val('') ;

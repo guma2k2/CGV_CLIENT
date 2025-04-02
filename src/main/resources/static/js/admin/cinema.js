@@ -1,6 +1,7 @@
 var extraImagesCount = 0 ;
 $(document).ready(function () {
     var jwt = $("input[name='token']").val() ;
+    var cinemaIdModify = null;
     $(".item.active").removeClass("active");
     $(".item.cinema").addClass("active");
     $("#city-list").on('change' , function() {
@@ -19,6 +20,41 @@ $(document).ready(function () {
         clearInput() ;
         extraImagesCount = 0 ;
     })
+
+
+    $('a.fa-trash').click(function() {
+        var cinemaId = $(this).data('id');
+        cinemaIdModify = cinemaId;
+        $('#confirmDialog').modal('show');
+        $('#modal-confirm-body').text('Do you want to delete this cinema?');
+    });
+
+    $('#btn-yes-confirm').click(function() {
+        if (cinemaIdModify != null) {
+            handleDelete(cinemaIdModify, jwt) ;
+        }
+    });
+
+    function handleDelete(id, jwt) {
+        var headers = { "Authorization": "Bearer " + jwt };
+        var url = baseUrl +  "/api/v1/admin/cinema/delete/" + id ;
+        $.ajax({
+            type: "DELETE",
+            contentType: "application/json",
+            url: url,
+            headers: headers,
+            success: function() {
+                alert("delete successful") ;
+                $("#confirmDialog").modal("hide") ;
+                cinemaIdModify = null;
+                checkCurrentCity(jwt);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error updating seat: " + errorThrown);
+            }
+        });
+    }
+
     $(".fas.fa-edit").click(function(e) {
         var cinemaId = $(this).data("id");
         console.log(cinemaId) ;

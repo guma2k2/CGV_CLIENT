@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $(".item.active").removeClass("active");
     $(".item.room").addClass("active");
+    var roomIdModify = null;
     var columnNumber = $("input[name='column-number']");
     var rowNumber = $("input[name='row-number']");
     var seatName = $("input[name='seatName']");
@@ -73,6 +74,55 @@ $(document).ready(function () {
             handleRoomByCinema(cinemaName, jwt) ;
         }
     })
+
+
+    $('a.fa-trash').click(function() {
+        var roomId = $(this).data('id');
+        roomIdModify = roomId;
+        $('#confirmDialog').modal('show');
+        $('#modal-confirm-body').text('Do you want to delete this room?');
+    });
+
+    $('#btn-yes-confirm').click(function() {
+        if (roomIdModify != null) {
+            handleDelete(roomIdModify, jwt) ;
+
+        }
+    });
+    function handleDelete(id , jwt) {
+        deleteRoomById(id, jwt)
+            .then(function(){
+                alert("Delete successful") ;
+            })
+            .catch(function(error) {
+                console.log(error);
+                if(error.responseJSON){
+                    alert(error.responseJSON.message);
+                } else {
+                    alert("An error was occur");
+                }
+            });
+    }
+
+    function deleteRoomById(id , jwt) {
+        var headers = { "Authorization": "Bearer " + jwt };
+        var url = baseUrl + "/api/v1/admin/room/delete/" + id ;
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                headers: headers,
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(jqXHR);
+                }
+            });
+        });
+    }
+
+
     $("#addRoom").click(function() {
         var cityId = $("#city-list").val() ;
         console.log(cityId) ;
@@ -102,6 +152,11 @@ $(document).ready(function () {
             alert("Please choose the city first ");
         }
     })
+
+
+
+
+
     $("#add-room").click(function() {
         var roomName = $("input[name='name']").val() ;
         var width = $("input[name='width']").val() ;
