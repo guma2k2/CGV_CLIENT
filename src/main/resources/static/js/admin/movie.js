@@ -228,25 +228,45 @@ $(document).ready(function () {
       updateMovieById(movie, movieId,formImage, jwt) ;
    })
     function handleDeleteMovie(movieId, jwt) {
-          var headers = { "Authorization": "Bearer " + jwt };
-          var url = baseUrl +  "/api/v1/admin/movie/delete/" + movieId ;
-          $.ajax({
-              type: "DELETE",
-              contentType: "application/json",
-              url: url,
-              headers: headers,
-              success: function() {
-                 alert("delete successful") ;
-                 $("#confirmDialog").modal("hide") ;
-                 movieIdToDelete = null;
-                  var action = '' ;
-                  handlePaginate(page, sortDir, sortField, keyword , jwt, action) ;
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-                  console.log("Error updating seat: " + errorThrown);
-              }
-          });
+        deleteMovie(movieId, jwt)
+            .then(function() {
+                alert("delete successful") ;
+                $("#confirmDialog").modal("hide") ;
+                movieIdToDelete = null;
+                var action = '' ;
+                handlePaginate(page, sortDir, sortField, keyword , jwt, action) ;
+            })
+            .catch(function(error){
+                console.log(error);
+                if(error.responseJSON){
+                    alert(error.responseJSON.message);
+                } else {
+                    alert("An error was occur");
+                }
+            })
     }
+
+    function deleteMovie(movieId, jwt) {
+        var headers = { "Authorization": "Bearer " + jwt };
+        var url = baseUrl + "/api/v1/admin/movie/delete/" + movieId;
+
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                type: "DELETE",
+                contentType: "application/json",
+                url: url,
+                headers: headers,
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log("AJAX Error:", jqXHR); // Debugging: Log the full error object
+                    reject(jqXHR); // Pass the full jqXHR object instead of just errorThrown
+                }
+            });
+        });
+    }
+
 
     // handle click on edit icon
     function getMovieById(movieId, jwt) {
