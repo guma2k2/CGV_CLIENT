@@ -36,22 +36,39 @@ $(document).ready(function () {
     });
 
     function handleDelete(id, jwt) {
-        var headers = { "Authorization": "Bearer " + jwt };
-        var url = baseUrl +  "/api/v1/admin/cinema/delete/" + id ;
-        $.ajax({
-            type: "DELETE",
-            contentType: "application/json",
-            url: url,
-            headers: headers,
-            success: function() {
+        deleteCinema(id, jwt)
+            .then(function() {
                 alert("delete successful") ;
                 $("#confirmDialog").modal("hide") ;
                 cinemaIdModify = null;
                 checkCurrentCity(jwt);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log("Error updating seat: " + errorThrown);
-            }
+            })
+            .catch(function(error){
+                console.log(error);
+                if(error.responseJSON){
+                    alert(error.responseJSON.message);
+                } else {
+                    alert("An error was occur");
+                }
+            })
+    }
+
+    function deleteCinema(id, jwt) {
+        var headers = { "Authorization": "Bearer " + jwt };
+        var url = baseUrl +  "/api/v1/admin/cinema/delete/" + id ;
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                type: "DELETE",
+                contentType: "application/json",
+                url: url,
+                headers: headers,
+                success: function(data) {
+                    resolve(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(jqXHR);;
+                }
+            });
         });
     }
 
@@ -364,6 +381,19 @@ $(document).ready(function () {
                     $(".modal-title").text("Update cinema") ;
                     setCinemaById(cinemaId, jwt);
                 })
+
+                $('a.fa-trash').click(function() {
+                    var cinemaId = $(this).data('id');
+                    cinemaIdModify = cinemaId;
+                    $('#confirmDialog').modal('show');
+                    $('#modal-confirm-body').text('Do you want to delete this cinema?');
+                });
+
+                $('#btn-yes-confirm').click(function() {
+                    if (cinemaIdModify != null) {
+                        handleDelete(cinemaIdModify, jwt) ;
+                    }
+                });
             })
             .catch(function(error) {
                console.log(error) ;
@@ -450,6 +480,19 @@ $(document).ready(function () {
                     $("input[name='cinemaId']").val(cinemaId);
                     setCinemaById(cinemaId, jwt);
                 })
+
+                $('a.fa-trash').click(function() {
+                    var cinemaId = $(this).data('id');
+                    cinemaIdModify = cinemaId;
+                    $('#confirmDialog').modal('show');
+                    $('#modal-confirm-body').text('Do you want to delete this cinema?');
+                });
+
+                $('#btn-yes-confirm').click(function() {
+                    if (cinemaIdModify != null) {
+                        handleDelete(cinemaIdModify, jwt) ;
+                    }
+                });
             })
             .catch(function(error) {
                 console.log(error) ;

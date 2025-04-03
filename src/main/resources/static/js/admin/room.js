@@ -76,19 +76,7 @@ $(document).ready(function () {
     })
 
 
-    $('a.fa-trash').click(function() {
-        var roomId = $(this).data('id');
-        roomIdModify = roomId;
-        $('#confirmDialog').modal('show');
-        $('#modal-confirm-body').text('Do you want to delete this room?');
-    });
 
-    $('#btn-yes-confirm').click(function() {
-        if (roomIdModify != null) {
-            handleDelete(roomIdModify, jwt) ;
-
-        }
-    });
     function handleDelete(id , jwt) {
         deleteRoomById(id, jwt)
             .then(function(){
@@ -152,6 +140,21 @@ $(document).ready(function () {
             alert("Please choose the city first ");
         }
     })
+
+
+    $('a.fa-trash').click(function() {
+        var roomId = $(this).data('id');
+        roomIdModify = roomId;
+        $('#confirmDialog').modal('show');
+        $('#modal-confirm-body').text('Do you want to delete this room?');
+    });
+
+    $('#btn-yes-confirm').click(function() {
+        if (roomIdModify != null) {
+            handleDelete(roomIdModify, jwt) ;
+
+        }
+    });
 
 
 
@@ -442,6 +445,20 @@ $(document).ready(function () {
                             alert("Please choose the city first ");
                         }
                     })
+
+                    $('a.fa-trash').click(function() {
+                        var roomId = $(this).data('id');
+                        roomIdModify = roomId;
+                        $('#confirmDialog').modal('show');
+                        $('#modal-confirm-body').text('Do you want to delete this room?');
+                    });
+
+                    $('#btn-yes-confirm').click(function() {
+                        if (roomIdModify != null) {
+                            handleDelete(roomIdModify, jwt) ;
+
+                        }
+                    });
                 }
             })
             .catch(function(error) {
@@ -618,6 +635,51 @@ $(document).ready(function () {
                             '</tr>';
                 });
                 $(".table-list").html(html);
+
+                $("#addRoom").click(function() {
+                    var cityId = $("#city-list").val() ;
+                    console.log(cityId) ;
+                    if(cityId === 'all') {
+                        alert("Please choose a city first") ;
+                    } else {
+                        $("#room-modal").modal("show");
+                        $("#update-room").hide();
+                        $("#add-room").show();
+                        $(".modal-title").text("Add room") ;
+                        var cinemaName = $("#cinema-list").val();
+                        handleGetCinemaByCityForModal(cityId, jwt, cinemaName) ;
+                    }
+                })
+                $(".fa-edit").click(function() {
+                    var cityId = $("#city-list").val() ;
+                    if(cityId !== 'all') {
+                        var roomId = $(this).data("id");
+                        console.log(roomId);
+                        $("#room-modal").modal("show");
+                        $("#update-room").show();
+                        $("#add-room").hide();
+                        $(".modal-title").text("Update room id: " + roomId) ;
+                        $("input[name='roomId']").val(roomId);
+                        handleRoomById(roomId, jwt) ;
+                    } else {
+                        alert("Please choose the city first ");
+                    }
+                })
+
+
+                $('a.fa-trash').click(function() {
+                    var roomId = $(this).data('id');
+                    roomIdModify = roomId;
+                    $('#confirmDialog').modal('show');
+                    $('#modal-confirm-body').text('Do you want to delete this room?');
+                });
+
+                $('#btn-yes-confirm').click(function() {
+                    if (roomIdModify != null) {
+                        handleDelete(roomIdModify, jwt) ;
+
+                    }
+                });
             })
             .catch(function(error) {
                 console.log(error);
