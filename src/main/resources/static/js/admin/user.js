@@ -134,7 +134,6 @@ $(document).ready(function () {
         $("#user-modal").modal("hide") ;
      })
      $("#add-user").click(function() {
-
         var firstName = $("input[name='firstName']").val() ;
         var lastName = $("input[name='lastName']").val() ;
         var email = $("input[name='email']").val() ;
