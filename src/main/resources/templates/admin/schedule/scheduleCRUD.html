@@ -10,9 +10,12 @@
         <div class="container " style="background :#ffffff; margin-top:20px; " >
             <div class="table-title" style="display:flex; justify-content: space-between; margin: 20px; padding:10px;" >
                 <h3>Search Event</h3>
-                <div class="action">
-                     <div class="btn btn-primary addAction" >Add</div>
-                </div>
+                <button class="btn btn-primary d-flex align-items-center gap-2 px-3 py-2 rounded shadow-sm addAction"
+                        style="height: 40px; margin-top: 20px;"
+                        aria-label="Add User">
+                    <i class="fas fa-plus"></i>
+                    <span>ADD</span>
+                </button>
             </div>
             <div class="row" style="font-size : 13px; margin-top: 10px; "  >
                 <input type="hidden" name="token" th:value ="${token}" />
