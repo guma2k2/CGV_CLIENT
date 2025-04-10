@@ -44,16 +44,18 @@ $(document).ready(function () {
         var element = $(this) ;
         handleUpdateStatus(userId, jwt, status , element ) ;
     })
-     $("#hidePassword").click(function() {
-        $(this).hide() ;
-        $("#showPassword").show() ;
-        $("input[name='password']").attr("type", "text");
-     })
-     $("#showPassword").click(function() {
-        $(this).hide() ;
-        $("#hidePassword").show() ;
-        $("input[name='password']").attr("type", "password");
-     })
+    $('.toggle-password').on('click', function() {
+        const input = $(this).closest('.input-group').find('.password-input');
+        const icon = $(this).find('i');
+
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            input.attr('type', 'password');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
 
      $("ul.pagination").on("click", "a.page-link", function(e) {
         e.preventDefault();
